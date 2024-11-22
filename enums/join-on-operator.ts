@@ -1,0 +1,17 @@
+export enum JoinOnOperator {
+  On,
+  OnGroupBegin,
+  OnGroupEnd,
+  OnRaw,
+  OnValue,
+  And,
+  AndGroupBegin,
+  AndGroupEnd,
+  AndRaw,
+  AndValue,
+  Or,
+  OrGroupBegin,
+  OrGroupEnd,
+  OrRaw,
+  OrValue,
+}

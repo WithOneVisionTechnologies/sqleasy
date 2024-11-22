@@ -1,0 +1,21 @@
+{
+  "version": "4",
+  "specifiers": {
+    "jsr:@withonevision/is-helper@^1.0.6": "1.0.6",
+    "jsr:@withonevision/string-builder@1": "1.0.0"
+  },
+  "jsr": {
+    "@withonevision/is-helper@1.0.6": {
+      "integrity": "7e973c1c7c8b1b979759e178b146ff79b9ca6a44b7fdbad2187c801b3e1b8a5b"
+    },
+    "@withonevision/string-builder@1.0.0": {
+      "integrity": "ce456a559ffaa54ce51d0fd50656eafe5ddeb12b5753bea7c5e5be7e08b7fcff"
+    }
+  },
+  "workspace": {
+    "dependencies": [
+      "jsr:@withonevision/is-helper@^1.0.6",
+      "jsr:@withonevision/string-builder@1"
+    ]
+  }
+}
