@@ -5,4 +5,4 @@ export * from "./helpers/index.ts";
 export * from "./state/index.ts";
 export * from "./translator/index.ts";
 
-export * from "./interface-sqleasy.ts";
+export * from "./interface-sqleasy-state.ts";

@@ -3,7 +3,7 @@ import type { IConfiguration } from "../configuration/interface-configuration.ts
 import type { JoinType } from "../enums/join-type.ts";
 import type { OrderByDirection } from "../enums/order-by-direction.ts";
 import type { WhereOperator } from "../enums/where-operator.ts";
-import type { SqlEasyState } from "../state/sqleasy.ts";
+import type { SqlEasyState } from "../state/sqleasy-state.ts";
 import type { IJoinOnBuilder } from "./interface-join-on-builder.ts";
 
 export interface IBuilder<T, U extends IJoinOnBuilder<U>> {

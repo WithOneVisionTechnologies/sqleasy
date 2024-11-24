@@ -1,5 +1,5 @@
 import type { MultiBuilderTransactionState } from "../enums/multi-builder-transaction-state.ts";
-import type { SqlEasyState } from "../state/sqleasy.ts";
+import type { SqlEasyState } from "../state/sqleasy-state.ts";
 
 export interface ITranslator {
   toSql(state: SqlEasyState): string;

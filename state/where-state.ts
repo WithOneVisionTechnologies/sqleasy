@@ -1,7 +1,7 @@
 // deno-lint-ignore-file no-explicit-any
 import { BuilderType } from "../enums/builder-type.ts";
 import { WhereOperator } from "../enums/where-operator.ts";
-import type { SqlEasyState } from "./sqleasy.ts";
+import type { SqlEasyState } from "./sqleasy-state.ts";
 
 export class WhereState {
   builderType: BuilderType = BuilderType.None;

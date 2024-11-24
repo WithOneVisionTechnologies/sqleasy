@@ -4,7 +4,7 @@ import { BuilderType } from "../enums/builder-type.ts";
 import { JoinType } from "../enums/join-type.ts";
 import { OrderByDirection } from "../enums/order-by-direction.ts";
 import { WhereOperator } from "../enums/where-operator.ts";
-import { SqlEasyState } from "../state/sqleasy.ts";
+import { SqlEasyState } from "../state/sqleasy-state.ts";
 import type { IBuilder } from "./interface-builder.ts";
 import type { IJoinOnBuilder } from "./interface-join-on-builder.ts";
 

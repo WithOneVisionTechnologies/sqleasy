@@ -1,9 +1,9 @@
 // deno-lint-ignore-file no-explicit-any
 import type { FromState } from "./from-state.ts";
-import type { JoinState } from "./join.ts";
+import type { JoinState } from "./join-state.ts";
 import type { OrderByState } from "./order-by-state.ts";
-import type { SelectState } from "./select.ts";
-import type { WhereState } from "./where.ts";
+import type { SelectState } from "./select-state.ts";
+import type { WhereState } from "./where-state.ts";
 
 export class SqlEasyState {
   builderName: string = "";

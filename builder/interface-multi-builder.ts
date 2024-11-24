@@ -1,5 +1,5 @@
 import type { MultiBuilderTransactionState } from "../enums/multi-builder-transaction-state.ts";
-import type { SqlEasyState } from "../state/sqleasy.ts";
+import type { SqlEasyState } from "../state/sqleasy-state.ts";
 import type { IBuilder } from "./interface-builder.ts";
 import type { IJoinOnBuilder } from "./interface-join-on-builder.ts";
 
@@ -12,4 +12,5 @@ export interface IMultiBuilder<
   reorderBuilders(builderNames: string[]): void;
   setTransactionState(transactionState: MultiBuilderTransactionState): void;
   states(): SqlEasyState[];
+  transactionState(): MultiBuilderTransactionState;
 }
