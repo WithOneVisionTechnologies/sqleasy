@@ -1,6 +1,7 @@
 export enum DataType {
   Boolean,
+  DateTime,
   Number,
   String,
-  DateTime,
+  Unknown,
 }

@@ -4,11 +4,11 @@ import { WhereOperator } from "../enums/where-operator.ts";
 import type { SqlEasyState } from "./sqleasy.ts";
 
 export class WhereState {
-  builderType: BuilderType = BuilderType.WhereAnd;
-  tableNameOrAlias: string = "";
-  columnName: string = "";
-  whereOperator: WhereOperator = WhereOperator.Equals;
+  builderType: BuilderType = BuilderType.None;
+  tableNameOrAlias: string | undefined = undefined;
+  columnName: string | undefined = undefined;
+  whereOperator: WhereOperator = WhereOperator.None;
   raw: string | undefined = undefined;
   sqlEasyState: SqlEasyState | undefined = undefined;
-  values: any[] = [];
+  values: any[] | undefined = undefined;
 }

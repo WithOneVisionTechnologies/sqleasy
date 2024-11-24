@@ -6,4 +6,5 @@ export enum JoinType {
   RightOuter,
   FullOuter,
   Cross,
+  None,
 }

@@ -5,4 +5,5 @@ export enum JoinOperator {
   GreaterThanOrEquals,
   LessThan,
   LessThanOrEquals,
+  None,
 }

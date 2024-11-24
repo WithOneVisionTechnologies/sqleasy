@@ -14,4 +14,5 @@ export enum JoinOnOperator {
   OrGroupEnd,
   OrRaw,
   OrValue,
+  None,
 }

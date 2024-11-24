@@ -5,4 +5,5 @@ export enum WhereOperator {
   GreaterThanOrEquals,
   LessThan,
   LessThanOrEquals,
+  None,
 }

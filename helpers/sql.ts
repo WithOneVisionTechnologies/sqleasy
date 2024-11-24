@@ -127,7 +127,7 @@ export const sqlHelper = (
     getSql,
     getSqlDebug,
     getValues,
-	getValueStringFromDataType,
+    getValueStringFromDataType,
     hasErrors,
     printErrors,
   };

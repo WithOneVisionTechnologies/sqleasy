@@ -90,13 +90,17 @@ export interface IBuilder<T, U extends IJoinOnBuilder<U>> {
   ): T;
   orderByRaw(rawOrderBy: string): T;
   orderByRaws(rawOrderBys: string[]): T;
-  selectColumn(tableNameOrAlias: string, columnName: string, alias: string): T;
   selectAll(): T;
+  selectColumn(
+    tableNameOrAlias: string,
+    columnName: string,
+    columnAlias: string,
+  ): T;
   selectColumns(
     columns: {
       tableNameOrAlias: string;
       columnName: string;
-      alias: string;
+      columnAlias: string;
     }[],
   ): T;
   selectRaw(rawSelect: string): T;
@@ -109,53 +113,7 @@ export interface IBuilder<T, U extends IJoinOnBuilder<U>> {
     whereOperator: WhereOperator,
     value: any,
   ): T;
-  whereAnd(
-    tableNameOrAlias: string,
-    columnName: string,
-    whereOperator: WhereOperator,
-    value: any,
-  ): T;
-  whereAndBetween(
-    tableNameOrAlias: string,
-    columnName: string,
-    value1: any,
-    value2: any,
-  ): T;
-  whereAndExistsWithBuilder(
-    tableNameOrAlias: string,
-    columnName: string,
-    builder: (builder: T) => void,
-  ): T;
-  whereAndGroup(groupBuilder: (groupBuilder: T) => void): T;
-  whereAndInWithBuilder(
-    tableNameOrAlias: string,
-    columnName: string,
-    builder: (builder: T) => void,
-  ): T;
-  whereAndInValues(
-    tableNameOrAlias: string,
-    columnName: string,
-    values: any[],
-  ): T;
-  whereAndNotExistsWithBuilder(
-    tableNameOrAlias: string,
-    columnName: string,
-    builder: (builder: T) => void,
-  ): T;
-  whereAndNotInWithBuilder(
-    tableNameOrAlias: string,
-    columnName: string,
-    builder: (builder: T) => void,
-  ): T;
-  whereAndNotInValues(
-    tableNameOrAlias: string,
-    columnName: string,
-    values: any[],
-  ): T;
-  whereAndNotNull(tableNameOrAlias: string, columnName: string): T;
-  whereAndNull(tableNameOrAlias: string, columnName: string): T;
-  whereAndRaw(rawWhere: string): T;
-  whereAndRaws(rawWheres: string[]): T;
+  whereAnd(): T;
   whereBetween(
     tableNameOrAlias: string,
     columnName: string,
@@ -167,13 +125,17 @@ export interface IBuilder<T, U extends IJoinOnBuilder<U>> {
     columnName: string,
     builder: (builder: T) => void,
   ): T;
-  whereGroup(groupBuilder: (groupBuilder: T) => void): T;
+  whereGroup(builder: (builder: T) => void): T;
   whereInWithBuilder(
     tableNameOrAlias: string,
     columnName: string,
     builder: (builder: T) => void,
   ): T;
-  whereInValues(tableNameOrAlias: string, columnName: string, values: any[]): T;
+  whereInValues(
+    tableNameOrAlias: string,
+    columnName: string,
+    values: any[],
+  ): T;
   whereNotExistsWithBuilder(
     tableNameOrAlias: string,
     columnName: string,
@@ -191,53 +153,7 @@ export interface IBuilder<T, U extends IJoinOnBuilder<U>> {
   ): T;
   whereNotNull(tableNameOrAlias: string, columnName: string): T;
   whereNull(tableNameOrAlias: string, columnName: string): T;
-  whereOr(
-    tableNameOrAlias: string,
-    columnName: string,
-    whereOperator: WhereOperator,
-    value: any,
-  ): T;
-  whereOrBetween(
-    tableNameOrAlias: string,
-    columnName: string,
-    value1: any,
-    value2: any,
-  ): T;
-  whereOrExistsWithBuilder(
-    tableNameOrAlias: string,
-    columnName: string,
-    builder: (builder: T) => void,
-  ): T;
-  whereOrGroup(groupBuilder: (groupBuilder: T) => void): T;
-  whereOrInWithBuilder(
-    tableNameOrAlias: string,
-    columnName: string,
-    builder: (builder: T) => void,
-  ): T;
-  whereOrInValues(
-    tableNameOrAlias: string,
-    columnName: string,
-    values: any[],
-  ): T;
-  whereOrNotExistsWithBuilder(
-    tableNameOrAlias: string,
-    columnName: string,
-    builder: (builder: T) => void,
-  ): T;
-  whereOrNotInWithBuilder(
-    tableNameOrAlias: string,
-    columnName: string,
-    builder: (builder: T) => void,
-  ): T;
-  whereOrNotInValues(
-    tableNameOrAlias: string,
-    columnName: string,
-    values: any[],
-  ): T;
-  whereOrNotNull(tableNameOrAlias: string, columnName: string): T;
-  whereOrNull(tableNameOrAlias: string, columnName: string): T;
-  whereOrRaw(rawWhere: string): T;
-  whereOrRaws(rawWheres: string[]): T;
+  whereOr(): T;
   whereRaw(rawWhere: string): T;
   whereRaws(rawWheres: string[]): T;
 }

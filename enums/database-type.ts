@@ -3,4 +3,5 @@ export enum DatabaseType {
   Postgres,
   Mysql,
   Sqlite,
+  Unknown,
 }
