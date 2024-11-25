@@ -1,9 +1,10 @@
 {
-    "deno.enable": true,
-    "deno.lint": true,
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "denoland.vscode-deno",
-    "cSpell.words": [
-        "Froms"
-    ]
+   "cSpell.words": [
+      "Froms"
+   ],
+   "deno.enable": true,
+   "deno.lint": true,
+   "editor.defaultFormatter": "denoland.vscode-deno",
+   "editor.formatOnSave": true,
+   "editor.tabSize": 3
 }

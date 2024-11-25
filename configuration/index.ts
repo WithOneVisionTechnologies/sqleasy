@@ -1,3 +1,3 @@
-export * from "./configuration-delimiters.ts";
-export * from "./interface-configuration.ts";
-export * from "./runtime-configuration.ts";
+export * from "./configuration_delimiters.ts";
+export * from "./interface_configuration.ts";
+export * from "./runtime_configuration.ts";

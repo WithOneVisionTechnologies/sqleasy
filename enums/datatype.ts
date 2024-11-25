@@ -1,7 +1,7 @@
-export enum DataType {
-  Boolean,
-  DateTime,
-  Number,
-  String,
-  Unknown,
+export enum Datatype {
+   Boolean,
+   DateTime,
+   Number,
+   String,
+   Unknown,
 }
