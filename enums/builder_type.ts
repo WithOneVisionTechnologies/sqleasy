@@ -27,4 +27,5 @@ export enum BuilderType {
    WhereNotNull,
    WhereNull,
    WhereRaw,
+   WhereValue,
 }

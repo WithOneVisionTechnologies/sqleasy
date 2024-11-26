@@ -7,12 +7,11 @@ import type { ParserMode } from "../enums/parser_mode.ts";
 import { SqlHelper } from "../helpers/sql_helper.ts";
 import type { JoinOnState } from "../state/join_on_state.ts";
 import type { SqlEasyState } from "../state/sqleasy_state.ts";
-import type { IParser } from "./interface_parser.ts";
+import { defaultToSql } from "./default_to_sql.ts";
 
 export const defaultJoin = (
    state: SqlEasyState,
    config: IConfiguration,
-   parser: IParser,
    mode: ParserMode,
 ): SqlHelper => {
    let sqlHelper = new SqlHelper(config, mode);
@@ -90,16 +89,15 @@ export const defaultJoin = (
          const subHelper = defaultToSql(
             joinState.sqlEasyState,
             config,
-            parser,
             mode,
          );
 
-         if (subHelper.HasError()) {
-            sqlHelper.addError(subHelper.GetError());
+         if (subHelper.hasErrors()) {
+            sqlHelper.addErrors(subHelper.getErrors());
             return sqlHelper;
          }
 
-         sqlHelper.addSqlSnippet("(" + subHelper.GetSql() + ")");
+         sqlHelper.addSqlSnippet("(" + subHelper.getSql() + ")");
 
          if (joinState.alias !== "") {
             sqlHelper.addSqlSnippet(" AS ");
@@ -189,6 +187,16 @@ const defaultJoinOns = (
       ) {
          sqlHelper.addErrorFromString(
             "JOIN: Group begin cannot be the last JOIN ON operator",
+         );
+
+         return sqlHelper;
+      }
+
+      if (
+         joinOnStates[i].joinOnOperator === JoinOnOperator.GroupEnd && i === 0
+      ) {
+         sqlHelper.addErrorFromString(
+            "JOIN: Group end cannot be the first JOIN ON operator",
          );
 
          return sqlHelper;

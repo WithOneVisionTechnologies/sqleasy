@@ -33,6 +33,18 @@ export class SqlHelper {
       this._errors.push(new Error(message));
    };
 
+   public addErrors = (errors: Error[]): void => {
+      errors.forEach((error) => {
+         this._errors.push(error);
+      });
+   };
+
+   public addErrorsFromStrings = (messages: string[]): void => {
+      messages.forEach((message) => {
+         this._errors.push(new Error(message));
+      });
+   };
+
    public addSqlSnippet = (sql: string): void => {
       this._sb.append(sql);
    };

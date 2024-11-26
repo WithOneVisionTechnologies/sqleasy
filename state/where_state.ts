@@ -1,6 +1,6 @@
 import { BuilderType } from "../enums/builder_type.ts";
 import { WhereOperator } from "../enums/where_operator.ts";
-import type { SqlEasyState } from "./sqleasy_state.ts";
+import { SqlEasyState } from "./sqleasy_state.ts";
 
 export class WhereState {
    builderType: BuilderType = BuilderType.None;
@@ -8,6 +8,6 @@ export class WhereState {
    columnName: string | undefined = undefined;
    whereOperator: WhereOperator = WhereOperator.None;
    raw: string | undefined = undefined;
-   sqlEasyState: SqlEasyState | undefined = undefined;
-   values: any[] | undefined = undefined;
+   sqlEasyState: SqlEasyState = new SqlEasyState();
+   values: any[] = [];
 }

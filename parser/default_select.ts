@@ -4,13 +4,12 @@ import { DatabaseType } from "../enums/database_type.ts";
 import type { ParserMode } from "../enums/parser_mode.ts";
 import { SqlHelper } from "../helpers/sql_helper.ts";
 import type { SqlEasyState } from "../state/sqleasy_state.ts";
-import type { IParser } from "./interface_parser.ts";
 import { BuilderType } from "../enums/builder_type.ts";
+import { defaultToSql } from "./default_to_sql.ts";
 
 export const defaultSelect = (
    state: SqlEasyState,
    config: IConfiguration,
-   parser: IParser,
    mode: ParserMode,
 ): SqlHelper => {
    const sqlHelper = new SqlHelper(config, mode);
@@ -98,16 +97,15 @@ export const defaultSelect = (
          const subHelper = defaultToSql(
             selectState.sqlEasyState,
             config,
-            parser,
             mode,
          );
 
-         if (subHelper.HasError()) {
-            sqlHelper.addError(subHelper.GetError());
+         if (subHelper.hasErrors()) {
+            sqlHelper.addErrors(subHelper.getErrors());
             return sqlHelper;
          }
 
-         sqlHelper.addSqlSnippet(`(${subHelper.GetSql()})`);
+         sqlHelper.addSqlSnippet(`(${subHelper.getSql()})`);
 
          if (selectState.alias !== "") {
             sqlHelper.addSqlSnippet(" AS ");
