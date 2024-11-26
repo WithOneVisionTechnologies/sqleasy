@@ -478,7 +478,7 @@ export abstract class DefaultBuilder<
          whereOperator: WhereOperator.None,
          raw: undefined,
          sqlEasyState: undefined,
-         values: undefined,
+         values: [],
       });
 
       return this._builderType;
@@ -519,7 +519,7 @@ export abstract class DefaultBuilder<
          whereOperator: WhereOperator.None,
          raw: undefined,
          sqlEasyState: newBuilder.state(),
-         values: undefined,
+         values: [],
       });
 
       return this._builderType;
@@ -532,7 +532,7 @@ export abstract class DefaultBuilder<
          columnName: undefined,
          whereOperator: WhereOperator.None,
          raw: undefined,
-         values: undefined,
+         values: [],
          sqlEasyState: undefined,
       });
 
@@ -546,7 +546,7 @@ export abstract class DefaultBuilder<
          columnName: undefined,
          whereOperator: WhereOperator.None,
          raw: undefined,
-         values: undefined,
+         values: [],
          sqlEasyState: newBuilder.state(),
       });
 
@@ -579,7 +579,7 @@ export abstract class DefaultBuilder<
          whereOperator: WhereOperator.None,
          raw: undefined,
          sqlEasyState: newBuilder.state(),
-         values: undefined,
+         values: [],
       });
 
       return this._builderType;
@@ -619,7 +619,7 @@ export abstract class DefaultBuilder<
          whereOperator: WhereOperator.None,
          raw: undefined,
          sqlEasyState: newBuilder.state(),
-         values: undefined,
+         values: [],
       });
 
       return this._builderType;
@@ -641,7 +641,7 @@ export abstract class DefaultBuilder<
          whereOperator: WhereOperator.None,
          raw: undefined,
          sqlEasyState: newBuilder.state(),
-         values: undefined,
+         values: [],
       });
 
       return this._builderType;
@@ -676,7 +676,7 @@ export abstract class DefaultBuilder<
          whereOperator: WhereOperator.None,
          raw: undefined,
          sqlEasyState: undefined,
-         values: undefined,
+         values: [],
       });
 
       return this._builderType;
@@ -690,7 +690,7 @@ export abstract class DefaultBuilder<
          whereOperator: WhereOperator.None,
          raw: undefined,
          sqlEasyState: undefined,
-         values: undefined,
+         values: [],
       });
 
       return this._builderType;
@@ -704,7 +704,7 @@ export abstract class DefaultBuilder<
          whereOperator: WhereOperator.None,
          raw: undefined,
          sqlEasyState: undefined,
-         values: undefined,
+         values: [],
       });
 
       return this._builderType;
@@ -718,7 +718,7 @@ export abstract class DefaultBuilder<
          whereOperator: WhereOperator.None,
          raw: rawWhere,
          sqlEasyState: undefined,
-         values: undefined,
+         values: [],
       });
 
       return this._builderType;

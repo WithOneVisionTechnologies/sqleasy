@@ -1,3 +1,4 @@
+import IsHelper from "@withonevision/is-helper";
 import type { IConfiguration } from "../configuration/interface_configuration.ts";
 import type { ParserMode } from "../enums/parser_mode.ts";
 import { SqlHelper } from "../helpers/sql_helper.ts";
@@ -10,11 +11,16 @@ import { defaultSelect } from "./default_select.ts";
 import { defaultWhere } from "./default_where.ts";
 
 export const defaultToSql = (
-   state: SqlEasyState,
+   state: SqlEasyState | undefined,
    config: IConfiguration,
    mode: ParserMode,
 ): SqlHelper => {
    const sqlHelper = new SqlHelper(config, mode);
+
+   if (IsHelper.isNullOrUndefined(state)) {
+      sqlHelper.addErrorFromString("No state provided");
+      return sqlHelper;
+   }
 
    const sel = defaultSelect(state, config, mode);
 

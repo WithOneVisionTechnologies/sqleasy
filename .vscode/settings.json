@@ -1,6 +1,10 @@
 {
    "cSpell.words": [
-      "Froms"
+      "executesql",
+      "Froms",
+      "NOCOUNT",
+      "nvarchar",
+      "tinyint"
    ],
    "deno.enable": true,
    "deno.lint": true,

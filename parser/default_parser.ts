@@ -6,33 +6,35 @@ import type { SqlEasyState } from "../state/sqleasy_state.ts";
 import { defaultToSql } from "./default_to_sql.ts";
 
 export abstract class DefaultParser {
-   private config: IConfiguration;
+   private _config: IConfiguration;
 
    constructor(config: IConfiguration) {
-      this.config = config;
+      this._config = config;
    }
 
-   public abstract toSql(state: SqlEasyState): string;
+   public abstract toSql(
+      state: SqlEasyState,
+   ): { sql: string; errors: Error[] | undefined };
    public abstract toSqlMulti(
       states: SqlEasyState[],
       transactionState: MultiBuilderTransactionState,
-   ): string;
+   ): { sql: string; errors: Error[] | undefined };
 
    public toSqlRaw(
       state: SqlEasyState,
-   ): { sql: string; errors: Error[] | null } {
-      const sqlHelper = defaultToSql(state, this.config, ParserMode.Raw);
+   ): { sql: string; errors: Error[] | undefined } {
+      const sqlHelper = defaultToSql(state, this._config, ParserMode.Raw);
       return { sql: sqlHelper.getSqlDebug(), errors: sqlHelper.getErrors() };
    }
 
    public toSqlMultiRaw(
       states: SqlEasyState[],
       transactionState: MultiBuilderTransactionState,
-   ): { sql: string; errors: Error[] | null } {
+   ): { sql: string; errors: Error[] | undefined } {
       let sqlRaw = "";
 
       if (transactionState === MultiBuilderTransactionState.TransactionOn) {
-         sqlRaw += this.config.transactionDelimiters().begin + "; ";
+         sqlRaw += this._config.transactionDelimiters().begin + "; ";
       }
 
       for (const state of states) {
@@ -44,9 +46,9 @@ export abstract class DefaultParser {
       }
 
       if (transactionState === MultiBuilderTransactionState.TransactionOn) {
-         sqlRaw += this.config.transactionDelimiters().end + "; ";
+         sqlRaw += this._config.transactionDelimiters().end + "; ";
       }
 
-      return { sql: sqlRaw, errors: null };
+      return { sql: sqlRaw, errors: undefined };
    }
 }

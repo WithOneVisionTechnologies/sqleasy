@@ -2,14 +2,14 @@ import type { MultiBuilderTransactionState } from "../enums/multi_builder_transa
 import type { SqlEasyState } from "../state/sqleasy_state.ts";
 
 export interface IParser {
-   toSql(state: SqlEasyState): string;
+   toSql(state: SqlEasyState): { sql: string; errors: Error[] | undefined };
    toSqlMulti(
       states: SqlEasyState[],
       transactionState: MultiBuilderTransactionState,
-   ): string;
-   toSqlRaw(state: SqlEasyState): string;
+   ): { sql: string; errors: Error[] | undefined };
+   toSqlRaw(state: SqlEasyState): { sql: string; errors: Error[] | undefined };
    toSqlMultiRaw(
       states: SqlEasyState[],
       transactionState: MultiBuilderTransactionState,
-   ): string;
+   ): { sql: string; errors: Error[] | undefined };
 }
