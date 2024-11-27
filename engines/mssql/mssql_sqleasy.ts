@@ -1,10 +1,10 @@
-import type { RuntimeConfiguration } from "./configuration/runtime_configuration.ts";
-import { MssqlBuilder } from "./engines/mssql/mssql_builder.ts";
-import { MssqlConfiguration } from "./engines/mssql/mssql_configuration.ts";
-import type { MssqlJoinOnBuilder } from "./engines/mssql/mssql_join_on_builder.ts";
-import { MssqlMultiBuilder } from "./engines/mssql/mssql_multi_builder.ts";
-import { MssqlParser } from "./engines/mssql/mssql_parser.ts";
-import type { ISqlEasy } from "./interface_sqleasy.ts";
+import type { RuntimeConfiguration } from "../../configuration/runtime_configuration.ts";
+import { MssqlBuilder } from "./mssql_builder.ts";
+import { MssqlConfiguration } from "./mssql_configuration.ts";
+import type { MssqlJoinOnBuilder } from "./mssql_join_on_builder.ts";
+import { MssqlMultiBuilder } from "./mssql_multi_builder.ts";
+import { MssqlParser } from "./mssql_parser.ts";
+import type { ISqlEasy } from "../interface_sqleasy.ts";
 
 export class MssqlSqlEasy implements
    ISqlEasy<

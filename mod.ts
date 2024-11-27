@@ -5,8 +5,3 @@ export * from "./enums/index.ts";
 export * from "./helpers/index.ts";
 export * from "./state/index.ts";
 export * from "./parser/index.ts";
-
-export * from "./interface_sqleasy.ts";
-export * from "./mssql_sqleasy.ts";
-export * from "./mysql_sqleasy.ts";
-export * from "./postgres_sqleasy.ts";

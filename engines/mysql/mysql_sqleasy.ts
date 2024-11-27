@@ -1,10 +1,10 @@
-import type { RuntimeConfiguration } from "./configuration/runtime_configuration.ts";
-import { MysqlBuilder } from "./engines/mysql/mysql_builder.ts";
-import { MysqlConfiguration } from "./engines/mysql/mysql_configuration.ts";
-import type { MysqlJoinOnBuilder } from "./engines/mysql/mysql_join_on_builder.ts";
-import { MysqlMultiBuilder } from "./engines/mysql/mysql_multi_builder.ts";
-import { MysqlParser } from "./engines/mysql/mysql_parser.ts";
-import type { ISqlEasy } from "./interface_sqleasy.ts";
+import type { RuntimeConfiguration } from "../../configuration/runtime_configuration.ts";
+import { MysqlBuilder } from "./mysql_builder.ts";
+import { MysqlConfiguration } from "./mysql_configuration.ts";
+import type { MysqlJoinOnBuilder } from "./mysql_join_on_builder.ts";
+import { MysqlMultiBuilder } from "./mysql_multi_builder.ts";
+import { MysqlParser } from "./mysql_parser.ts";
+import type { ISqlEasy } from "../interface_sqleasy.ts";
 
 export class MysqlSqlEasy implements
    ISqlEasy<
