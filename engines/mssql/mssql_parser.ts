@@ -118,7 +118,7 @@ export class MssqlParser extends DefaultParser {
       _states: SqlEasyState[],
       _transactionState: MultiBuilderTransactionState,
    ): { sql: string; errors: Error[] | undefined } {
-      throw new Error("Method not implemented.");
+      throw new Error("toSqlMulti not implemented for MssqlParser");
    }
 
    private getParameterType(value: any): string {

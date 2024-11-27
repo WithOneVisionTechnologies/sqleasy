@@ -8,3 +8,5 @@ export * from "./parser/index.ts";
 
 export * from "./interface_sqleasy.ts";
 export * from "./mssql_sqleasy.ts";
+export * from "./mysql_sqleasy.ts";
+export * from "./postgres_sqleasy.ts";
