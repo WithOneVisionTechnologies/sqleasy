@@ -3,7 +3,6 @@ import { MysqlBuilder } from "./mysql_builder.ts";
 import { MysqlConfiguration } from "./mysql_configuration.ts";
 import type { MysqlJoinOnBuilder } from "./mysql_join_on_builder.ts";
 import { MysqlMultiBuilder } from "./mysql_multi_builder.ts";
-import { MysqlParser } from "./mysql_parser.ts";
 import type { ISqlEasy } from "../interface_sqleasy.ts";
 import IsHelper from "@withonevision/is-helper";
 
@@ -11,8 +10,7 @@ export class MysqlSqlEasy implements
    ISqlEasy<
       MysqlBuilder,
       MysqlJoinOnBuilder,
-      MysqlMultiBuilder,
-      MysqlParser
+      MysqlMultiBuilder
    > {
    private _mssqlConfiguration: MysqlConfiguration;
 
@@ -47,9 +45,5 @@ export class MysqlSqlEasy implements
       }
 
       return new MysqlMultiBuilder(new MysqlConfiguration(rc));
-   }
-
-   public parser(): MysqlParser {
-      return new MysqlParser(this._mssqlConfiguration);
    }
 }

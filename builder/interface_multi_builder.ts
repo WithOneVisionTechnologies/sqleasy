@@ -8,6 +8,8 @@ export interface IMultiBuilder<
    U extends IJoinOnBuilder<U>,
 > {
    addBuilder(builderName: string): T;
+   parse(): { sql: string; errors: Error[] | undefined };
+   parseRaw(): { sql: string; errors: Error[] | undefined };
    removeBuilder(builderName: string): void;
    reorderBuilders(builderNames: string[]): void;
    setTransactionState(transactionState: MultiBuilderTransactionState): void;

@@ -20,6 +20,8 @@ export abstract class DefaultBuilder<
 
    public abstract newBuilder(): T;
    public abstract newJoinOnBuilder(): U;
+   public abstract parse(): { sql: string; errors: Error[] | undefined };
+   public abstract parseRaw(): { sql: string; errors: Error[] | undefined };
 
    public clearAll = (): T => {
       this._sqlEasyState = new SqlEasyState();

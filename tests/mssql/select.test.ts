@@ -6,6 +6,6 @@ Deno.test("select all", () => {
    const builder = sqlEasy.newBuilder();
    builder.selectAll().fromTable("users", "u");
 
-   const sql = sqlEasy.parser().toSqlRaw(builder.state());
+   const sql = builder.parseRaw();
    assertEquals(sql.sql, "SELECT * FROM [dbo].[users] AS [u];");
 });

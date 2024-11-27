@@ -19,6 +19,8 @@ export abstract class DefaultMultiBuilder<
    }
 
    public abstract newBuilder(): T;
+   public abstract parse(): { sql: string; errors: Error[] | undefined };
+   public abstract parseRaw(): { sql: string; errors: Error[] | undefined };
 
    public addBuilder(builderName: string): T {
       const newBuilder = this.newBuilder();
