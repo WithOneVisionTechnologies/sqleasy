@@ -13,59 +13,57 @@ export abstract class DefaultBuilder<
 > implements IBuilder<T, U> {
    private _sqlEasyState: SqlEasyState = new SqlEasyState();
    private _config: IConfiguration;
-   private _builderType: T;
 
-   constructor(config: IConfiguration, builderType: T) {
-      this._builderType = builderType;
+   constructor(config: IConfiguration) {
       this._config = config;
    }
 
-   public abstract newBuilder(config: IConfiguration): T;
-   public abstract newJoinOnBuilder(config: IConfiguration): U;
+   public abstract newBuilder(): T;
+   public abstract newJoinOnBuilder(): U;
 
    public clearAll = (): T => {
       this._sqlEasyState = new SqlEasyState();
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public clearFrom = (): T => {
       this._sqlEasyState.fromStates = [];
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public clearJoin = (): T => {
       this._sqlEasyState.joinStates = [];
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public clearLimit = (): T => {
       this._sqlEasyState.limit = 0;
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public clearOffset = (): T => {
       this._sqlEasyState.offset = 0;
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public clearOrderBy = (): T => {
       this._sqlEasyState.orderByStates = [];
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public clearSelect = (): T => {
       this._sqlEasyState.selectStates = [];
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public clearWhere = (): T => {
       this._sqlEasyState.whereStates = [];
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public distinct = (): T => {
       this._sqlEasyState.distinct = true;
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public fromRaw = (rawFrom: string): T => {
@@ -77,14 +75,14 @@ export abstract class DefaultBuilder<
          sqlEasyState: undefined,
          raw: rawFrom,
       });
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public fromRaws = (rawFroms: string[]): T => {
       rawFroms.forEach((rawFrom) => {
          this.fromRaw(rawFrom);
       });
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public fromTable = (tableName: string, alias: string): T => {
@@ -96,14 +94,14 @@ export abstract class DefaultBuilder<
          sqlEasyState: undefined,
          raw: undefined,
       });
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public fromTables = (tables: { tableName: string; alias: string }[]): T => {
       tables.forEach((table) => {
          this.fromTable(table.tableName, table.alias);
       });
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public fromTableWithOwner = (
@@ -119,7 +117,7 @@ export abstract class DefaultBuilder<
          sqlEasyState: undefined,
          raw: undefined,
       });
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public fromTablesWithOwner = (
@@ -128,14 +126,14 @@ export abstract class DefaultBuilder<
       tables.forEach((table) => {
          this.fromTableWithOwner(table.owner, table.tableName, table.alias);
       });
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public fromWithBuilder = (
       alias: string,
       builder: (builder: T) => void,
    ): T => {
-      const newBuilder = this._builderType.newBuilder(this._config);
+      const newBuilder = this.newBuilder();
       builder(newBuilder);
       newBuilder.state().isInnerStatement = true;
 
@@ -148,7 +146,7 @@ export abstract class DefaultBuilder<
          raw: undefined,
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public joinRaw = (rawJoin: string): T => {
@@ -163,7 +161,7 @@ export abstract class DefaultBuilder<
          joinOnStates: [],
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public joinRaws = (rawJoins: string[]): T => {
@@ -171,7 +169,7 @@ export abstract class DefaultBuilder<
          this.joinRaw(rawJoin);
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public joinTable = (
@@ -180,9 +178,7 @@ export abstract class DefaultBuilder<
       alias: string,
       joinOnBuilder: (joinOnBuilder: U) => void,
    ): T => {
-      const joinOnBuilderInstance = this._builderType.newJoinOnBuilder(
-         this._config,
-      );
+      const joinOnBuilderInstance = this.newJoinOnBuilder();
       joinOnBuilder(joinOnBuilderInstance);
 
       this._sqlEasyState.joinStates.push({
@@ -196,7 +192,7 @@ export abstract class DefaultBuilder<
          joinOnStates: joinOnBuilderInstance.states(),
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public joinTables = (
@@ -215,7 +211,7 @@ export abstract class DefaultBuilder<
             join.joinOnBuilder,
          );
       }
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public joinTablesWithOwner = (
@@ -236,7 +232,7 @@ export abstract class DefaultBuilder<
             join.joinOnBuilder,
          );
       }
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public joinTableWithOwner = (
@@ -246,9 +242,7 @@ export abstract class DefaultBuilder<
       alias: string,
       joinOnBuilder: (joinOnBuilder: U) => void,
    ): T => {
-      const joinOnBuilderInstance = this._builderType.newJoinOnBuilder(
-         this._config,
-      );
+      const joinOnBuilderInstance = this.newJoinOnBuilder();
       joinOnBuilder(joinOnBuilderInstance);
 
       this._sqlEasyState.joinStates.push({
@@ -262,7 +256,7 @@ export abstract class DefaultBuilder<
          joinOnStates: joinOnBuilderInstance.states(),
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public joinWithBuilder = (
@@ -271,12 +265,12 @@ export abstract class DefaultBuilder<
       builder: (builder: T) => void,
       joinOnBuilder: (joinOnBuilder: U) => void,
    ): T => {
-      const newBuilder = this._builderType.newBuilder(this._config);
+      const newBuilder = this.newBuilder();
 
       builder(newBuilder);
       newBuilder.state().isInnerStatement = true;
 
-      const newJoinOnBuilder = this._builderType.newJoinOnBuilder(this._config);
+      const newJoinOnBuilder = this.newJoinOnBuilder();
       joinOnBuilder(newJoinOnBuilder);
 
       this._sqlEasyState.joinStates.push({
@@ -290,17 +284,17 @@ export abstract class DefaultBuilder<
          joinOnStates: newJoinOnBuilder.states(),
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public limit = (limit: number): T => {
       this._sqlEasyState.limit = limit;
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public offset = (offset: number): T => {
       this._sqlEasyState.offset = offset;
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public orderByColumn = (
@@ -316,7 +310,7 @@ export abstract class DefaultBuilder<
          raw: undefined,
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public orderByColumns = (
@@ -334,7 +328,7 @@ export abstract class DefaultBuilder<
          );
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public orderByRaw = (rawOrderBy: string): T => {
@@ -346,7 +340,7 @@ export abstract class DefaultBuilder<
          raw: rawOrderBy,
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public orderByRaws = (rawOrderBys: string[]): T => {
@@ -354,7 +348,7 @@ export abstract class DefaultBuilder<
          this.orderByRaw(rawOrderBy);
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public selectAll = (): T => {
@@ -367,7 +361,7 @@ export abstract class DefaultBuilder<
          raw: undefined,
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public selectColumn = (
@@ -384,7 +378,7 @@ export abstract class DefaultBuilder<
          raw: undefined,
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public selectColumns = (
@@ -402,7 +396,7 @@ export abstract class DefaultBuilder<
          );
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public selectRaw = (rawSelect: string): T => {
@@ -415,7 +409,7 @@ export abstract class DefaultBuilder<
          raw: rawSelect,
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public selectRaws = (rawSelects: string[]): T => {
@@ -423,14 +417,14 @@ export abstract class DefaultBuilder<
          this.selectRaw(rawSelect);
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public selectWithBuilder = (
       alias: string,
       builder: (builder: T) => void,
    ): T => {
-      const newBuilder = this._builderType.newBuilder(this._config);
+      const newBuilder = this.newBuilder();
 
       builder(newBuilder);
       newBuilder.state().isInnerStatement = true;
@@ -444,7 +438,7 @@ export abstract class DefaultBuilder<
          raw: undefined,
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public state = (): SqlEasyState => {
@@ -467,7 +461,7 @@ export abstract class DefaultBuilder<
          values: [value],
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public whereAnd = (): T => {
@@ -481,7 +475,7 @@ export abstract class DefaultBuilder<
          values: [],
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public whereBetween = (
@@ -500,7 +494,7 @@ export abstract class DefaultBuilder<
          values: [value1, value2],
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public whereExistsWithBuilder = (
@@ -508,7 +502,7 @@ export abstract class DefaultBuilder<
       columnName: string,
       builder: (builder: T) => void,
    ): T => {
-      const newBuilder = this._builderType.newBuilder(this._config);
+      const newBuilder = this.newBuilder();
       builder(newBuilder);
       newBuilder.state().isInnerStatement = true;
 
@@ -522,7 +516,7 @@ export abstract class DefaultBuilder<
          values: [],
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public whereGroup(builder: (builder: T) => void): T {
@@ -536,7 +530,7 @@ export abstract class DefaultBuilder<
          sqlEasyState: undefined,
       });
 
-      const newBuilder = this._builderType.newBuilder(this._config);
+      const newBuilder = this.newBuilder();
       builder(newBuilder);
       newBuilder.state().isInnerStatement = true;
 
@@ -560,7 +554,7 @@ export abstract class DefaultBuilder<
          sqlEasyState: newBuilder.state(),
       });
 
-      return this._builderType;
+      return this as unknown as T;
    }
 
    public whereInWithBuilder = (
@@ -568,7 +562,7 @@ export abstract class DefaultBuilder<
       columnName: string,
       builder: (builder: T) => void,
    ): T => {
-      const newBuilder = this._builderType.newBuilder(this._config);
+      const newBuilder = this.newBuilder();
       builder(newBuilder);
       newBuilder.state().isInnerStatement = true;
 
@@ -582,7 +576,7 @@ export abstract class DefaultBuilder<
          values: [],
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public whereInValues = (
@@ -600,7 +594,7 @@ export abstract class DefaultBuilder<
          values: values,
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public whereNotExistsWithBuilder = (
@@ -608,7 +602,7 @@ export abstract class DefaultBuilder<
       columnName: string,
       builder: (builder: T) => void,
    ): T => {
-      const newBuilder = this._builderType.newBuilder(this._config);
+      const newBuilder = this.newBuilder();
       builder(newBuilder);
       newBuilder.state().isInnerStatement = true;
 
@@ -622,7 +616,7 @@ export abstract class DefaultBuilder<
          values: [],
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public whereNotInWithBuilder = (
@@ -630,7 +624,7 @@ export abstract class DefaultBuilder<
       columnName: string,
       builder: (builder: T) => void,
    ): T => {
-      const newBuilder = this._builderType.newBuilder(this._config);
+      const newBuilder = this.newBuilder();
       builder(newBuilder);
       newBuilder.state().isInnerStatement = true;
 
@@ -644,7 +638,7 @@ export abstract class DefaultBuilder<
          values: [],
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public whereNotInValues = (
@@ -662,7 +656,7 @@ export abstract class DefaultBuilder<
          values: values,
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public whereNotNull = (
@@ -679,7 +673,7 @@ export abstract class DefaultBuilder<
          values: [],
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public whereNull = (tableNameOrAlias: string, columnName: string): T => {
@@ -693,7 +687,7 @@ export abstract class DefaultBuilder<
          values: [],
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public whereOr = (): T => {
@@ -707,7 +701,7 @@ export abstract class DefaultBuilder<
          values: [],
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public whereRaw = (rawWhere: string): T => {
@@ -721,7 +715,7 @@ export abstract class DefaultBuilder<
          values: [],
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 
    public whereRaws = (rawWheres: string[]): T => {
@@ -729,6 +723,6 @@ export abstract class DefaultBuilder<
          this.whereRaw(rawWhere);
       });
 
-      return this._builderType;
+      return this as unknown as T;
    };
 }

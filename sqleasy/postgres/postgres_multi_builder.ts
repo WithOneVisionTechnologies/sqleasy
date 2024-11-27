@@ -5,13 +5,14 @@ import type { PostgresJoinOnBuilder } from "./postgres_join_on_builder.ts";
 
 export class PostgresMultiBuilder
    extends DefaultMultiBuilder<PostgresBuilder, PostgresJoinOnBuilder> {
+   private _postgresConfig: PostgresConfiguration;
+
    constructor(config: PostgresConfiguration) {
-      super(config, PostgresBuilder.NewPostgresBuilder(config));
+      super(config);
+      this._postgresConfig = config;
    }
 
-   public static NewPostgresMultiBuilder(
-      config: PostgresConfiguration,
-   ): PostgresMultiBuilder {
-      return new PostgresMultiBuilder(config);
+   public newBuilder(): PostgresBuilder {
+      return new PostgresBuilder(this._postgresConfig);
    }
 }

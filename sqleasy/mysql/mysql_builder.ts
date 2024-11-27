@@ -7,19 +7,15 @@ export class MysqlBuilder
    private _mysqlConfig: MysqlConfiguration;
 
    constructor(config: MysqlConfiguration) {
-      super(config, MysqlBuilder.NewMysqlBuilder(config));
+      super(config);
       this._mysqlConfig = config;
    }
 
-   public static NewMysqlBuilder(config: MysqlConfiguration): MysqlBuilder {
-      return new MysqlBuilder(config);
-   }
-
    public newBuilder(): MysqlBuilder {
-      return MysqlBuilder.NewMysqlBuilder(this._mysqlConfig);
+      return new MysqlBuilder(this._mysqlConfig);
    }
 
    public newJoinOnBuilder(): MysqlJoinOnBuilder {
-      return MysqlJoinOnBuilder.NewMysqlJoinOnBuilder(this._mysqlConfig);
+      return new MysqlJoinOnBuilder(this._mysqlConfig);
    }
 }

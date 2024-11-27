@@ -14,10 +14,6 @@ export class MssqlParser extends DefaultParser {
       this._mssqlConfiguration = config;
    }
 
-   public static NewMssqlParser(config: MssqlConfiguration): MssqlParser {
-      return new MssqlParser(config);
-   }
-
    public override toSql(
       state: SqlEasyState,
    ): { sql: string; errors: Error[] | undefined } {

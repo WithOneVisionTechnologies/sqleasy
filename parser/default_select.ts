@@ -29,6 +29,7 @@ export const defaultSelect = (
 
    if (config.databaseType() === DatabaseType.Mssql) {
       if (
+         !IsHelper.isNullOrUndefined(state.customState) &&
          !IsHelper.isNullOrUndefined(state.customState["top"]) &&
          state.customState["top"] > 0
       ) {
@@ -38,6 +39,7 @@ export const defaultSelect = (
       }
 
       if (
+         !IsHelper.isNullOrUndefined(state.customState) &&
          IsHelper.isNullOrUndefined(state.customState["top"]) &&
          !state.isInnerStatement &&
          state.limit === 0 &&

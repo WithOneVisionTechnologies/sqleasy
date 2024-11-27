@@ -33,23 +33,23 @@ export class MysqlSqlEasy implements
 
    public newBuilder(rc?: RuntimeConfiguration): MysqlBuilder {
       if (IsHelper.isNullOrUndefined(rc)) {
-         return MysqlBuilder.NewMysqlBuilder(this._mssqlConfiguration);
+         return new MysqlBuilder(this._mssqlConfiguration);
       }
 
-      return MysqlBuilder.NewMysqlBuilder(new MysqlConfiguration(rc));
+      return new MysqlBuilder(new MysqlConfiguration(rc));
    }
 
    public newMultiBuilder(rc?: RuntimeConfiguration): MysqlMultiBuilder {
       if (IsHelper.isNullOrUndefined(rc)) {
-         return MysqlMultiBuilder.NewMysqlMultiBuilder(
+         return new MysqlMultiBuilder(
             this._mssqlConfiguration,
          );
       }
 
-      return MysqlMultiBuilder.NewMysqlMultiBuilder(new MysqlConfiguration(rc));
+      return new MysqlMultiBuilder(new MysqlConfiguration(rc));
    }
 
    public parser(): MysqlParser {
-      return MysqlParser.NewMysqlParser(this._mssqlConfiguration);
+      return new MysqlParser(this._mssqlConfiguration);
    }
 }

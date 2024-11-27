@@ -13,15 +13,15 @@ export abstract class DefaultMultiBuilder<
    private _states: SqlEasyState[] = [];
    private _transactionState: MultiBuilderTransactionState =
       MultiBuilderTransactionState.TransactionOn;
-   private _builderType: T;
 
-   constructor(config: IConfiguration, builderType: T) {
+   constructor(config: IConfiguration) {
       this._config = config;
-      this._builderType = builderType;
    }
 
+   public abstract newBuilder(): T;
+
    public addBuilder(builderName: string): T {
-      const newBuilder = this._builderType.newBuilder(this._config);
+      const newBuilder = this.newBuilder();
       newBuilder.state().builderName = builderName;
       this._states.push(newBuilder.state());
 

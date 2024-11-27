@@ -3,19 +3,14 @@ import type { MssqlConfiguration } from "./mssql_configuration.ts";
 
 export class MssqlJoinOnBuilder
    extends DefaultJoinOnBuilder<MssqlJoinOnBuilder> {
+   private _mssqlConfiguration: MssqlConfiguration;
+
    constructor(config: MssqlConfiguration) {
-      super(config, MssqlJoinOnBuilder.NewMssqlJoinOnBuilder(config));
+      super(config);
+      this._mssqlConfiguration = config;
    }
 
-   public static NewMssqlJoinOnBuilder(
-      config: MssqlConfiguration,
-   ): MssqlJoinOnBuilder {
-      return new MssqlJoinOnBuilder(config);
-   }
-
-   public override newJoinOnBuilder(
-      config: MssqlConfiguration,
-   ): MssqlJoinOnBuilder {
-      return MssqlJoinOnBuilder.NewMssqlJoinOnBuilder(config);
+   public override newJoinOnBuilder(): MssqlJoinOnBuilder {
+      return new MssqlJoinOnBuilder(this._mssqlConfiguration);
    }
 }

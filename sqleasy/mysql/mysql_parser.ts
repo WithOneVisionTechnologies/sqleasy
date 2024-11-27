@@ -11,10 +11,6 @@ export class MysqlParser extends DefaultParser {
       this._mysqlConfiguration = config;
    }
 
-   public static NewMysqlParser(config: MysqlConfiguration): MysqlParser {
-      return new MysqlParser(config);
-   }
-
    public override toSql(
       _state: SqlEasyState,
    ): { sql: string; errors: Error[] | undefined } {

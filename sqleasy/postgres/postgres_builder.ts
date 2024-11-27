@@ -4,24 +4,18 @@ import { PostgresJoinOnBuilder } from "./postgres_join_on_builder.ts";
 
 export class PostgresBuilder
    extends DefaultBuilder<PostgresBuilder, PostgresJoinOnBuilder> {
-   private _mysqlConfig: PostgresConfiguration;
+   private _postgresConfig: PostgresConfiguration;
 
    constructor(config: PostgresConfiguration) {
-      super(config, PostgresBuilder.NewPostgresBuilder(config));
-      this._mysqlConfig = config;
-   }
-
-   public static NewPostgresBuilder(
-      config: PostgresConfiguration,
-   ): PostgresBuilder {
-      return new PostgresBuilder(config);
+      super(config);
+      this._postgresConfig = config;
    }
 
    public newBuilder(): PostgresBuilder {
-      return PostgresBuilder.NewPostgresBuilder(this._mysqlConfig);
+      return new PostgresBuilder(this._postgresConfig);
    }
 
    public newJoinOnBuilder(): PostgresJoinOnBuilder {
-      return PostgresJoinOnBuilder.NewPostgresJoinOnBuilder(this._mysqlConfig);
+      return new PostgresJoinOnBuilder(this._postgresConfig);
    }
 }

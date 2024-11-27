@@ -8,14 +8,12 @@ export abstract class DefaultJoinOnBuilder<T extends IJoinOnBuilder<T>>
    implements IJoinOnBuilder<T> {
    private _states: JoinOnState[] = [];
    private _config: IConfiguration;
-   private _builderType: T;
 
-   constructor(config: IConfiguration, builderType: T) {
-      this._builderType = builderType;
+   constructor(config: IConfiguration) {
       this._config = config;
    }
 
-   public abstract newJoinOnBuilder(config: IConfiguration): T;
+   public abstract newJoinOnBuilder(): T;
 
    public and(): T {
       this._states.push({
@@ -29,7 +27,7 @@ export abstract class DefaultJoinOnBuilder<T extends IJoinOnBuilder<T>>
          valueRight: undefined,
       });
 
-      return this._builderType;
+      return this as unknown as T;
    }
 
    public on(
@@ -50,7 +48,7 @@ export abstract class DefaultJoinOnBuilder<T extends IJoinOnBuilder<T>>
          valueRight: undefined,
       });
 
-      return this._builderType;
+      return this as unknown as T;
    }
 
    public onGroup(builder: (builder: T) => void): T {
@@ -65,7 +63,7 @@ export abstract class DefaultJoinOnBuilder<T extends IJoinOnBuilder<T>>
          valueRight: undefined,
       });
 
-      const newBuilder = this.newJoinOnBuilder(this._config);
+      const newBuilder = this.newJoinOnBuilder();
       builder(newBuilder);
 
       this._states.push({
@@ -79,7 +77,7 @@ export abstract class DefaultJoinOnBuilder<T extends IJoinOnBuilder<T>>
          valueRight: undefined,
       });
 
-      return this._builderType;
+      return this as unknown as T;
    }
 
    public onRaw(raw: string): T {
@@ -127,7 +125,7 @@ export abstract class DefaultJoinOnBuilder<T extends IJoinOnBuilder<T>>
          valueRight: undefined,
       });
 
-      return this._builderType;
+      return this as unknown as T;
    }
 
    public states(): JoinOnState[] {

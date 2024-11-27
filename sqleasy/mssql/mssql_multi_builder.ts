@@ -5,13 +5,14 @@ import type { MssqlJoinOnBuilder } from "./mssql_join_on_builder.ts";
 
 export class MssqlMultiBuilder
    extends DefaultMultiBuilder<MssqlBuilder, MssqlJoinOnBuilder> {
+   private _mssqlConfiguration: MssqlConfiguration;
+
    constructor(config: MssqlConfiguration) {
-      super(config, MssqlBuilder.NewMssqlBuilder(config));
+      super(config);
+      this._mssqlConfiguration = config;
    }
 
-   public static NewMssqlMultiBuilder(
-      config: MssqlConfiguration,
-   ): MssqlMultiBuilder {
-      return new MssqlMultiBuilder(config);
+   public override newBuilder(): MssqlBuilder {
+      return new MssqlBuilder(this._mssqlConfiguration);
    }
 }

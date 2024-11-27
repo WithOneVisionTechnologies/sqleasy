@@ -7,20 +7,16 @@ export class MssqlBuilder
    private _mssqlConfig: MssqlConfiguration;
 
    constructor(config: MssqlConfiguration) {
-      super(config, MssqlBuilder.NewMssqlBuilder(config));
+      super(config);
       this._mssqlConfig = config;
    }
 
-   public static NewMssqlBuilder(config: MssqlConfiguration): MssqlBuilder {
-      return new MssqlBuilder(config);
-   }
-
    public override newBuilder(): MssqlBuilder {
-      return MssqlBuilder.NewMssqlBuilder(this._mssqlConfig);
+      return new MssqlBuilder(this._mssqlConfig);
    }
 
    public override newJoinOnBuilder(): MssqlJoinOnBuilder {
-      return MssqlJoinOnBuilder.NewMssqlJoinOnBuilder(this._mssqlConfig);
+      return new MssqlJoinOnBuilder(this._mssqlConfig);
    }
 
    public clearTop(): MssqlBuilder {

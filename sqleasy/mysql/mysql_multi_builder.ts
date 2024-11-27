@@ -5,13 +5,14 @@ import type { MysqlJoinOnBuilder } from "./mysql_join_on_builder.ts";
 
 export class MysqlMultiBuilder
    extends DefaultMultiBuilder<MysqlBuilder, MysqlJoinOnBuilder> {
+   private _mysqlConfig: MysqlConfiguration;
+
    constructor(config: MysqlConfiguration) {
-      super(config, MysqlBuilder.NewMysqlBuilder(config));
+      super(config);
+      this._mysqlConfig = config;
    }
 
-   public static NewMysqlMultiBuilder(
-      config: MysqlConfiguration,
-   ): MysqlMultiBuilder {
-      return new MysqlMultiBuilder(config);
+   public override newBuilder(): MysqlBuilder {
+      return new MysqlBuilder(this._mysqlConfig);
    }
 }

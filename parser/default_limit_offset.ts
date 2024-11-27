@@ -48,6 +48,7 @@ export const defaultLimitOffset = (
 
    if (config.databaseType() == DatabaseType.Mssql) {
       if (
+         !IsHelper.isNullOrUndefined(state.customState) &&
          !IsHelper.isNullOrUndefined(state.customState["top"]) &&
          (state.limit > 0 || state.offset > 0)
       ) {

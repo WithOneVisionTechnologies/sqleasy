@@ -3,19 +3,14 @@ import type { MysqlConfiguration } from "./mysql_configuration.ts";
 
 export class MysqlJoinOnBuilder
    extends DefaultJoinOnBuilder<MysqlJoinOnBuilder> {
+   private _mysqlConfig: MysqlConfiguration;
+
    constructor(config: MysqlConfiguration) {
-      super(config, MysqlJoinOnBuilder.NewMysqlJoinOnBuilder(config));
+      super(config);
+      this._mysqlConfig = config;
    }
 
-   public static NewMysqlJoinOnBuilder(
-      config: MysqlConfiguration,
-   ): MysqlJoinOnBuilder {
-      return new MysqlJoinOnBuilder(config);
-   }
-
-   public override newJoinOnBuilder(
-      config: MysqlConfiguration,
-   ): MysqlJoinOnBuilder {
-      return MysqlJoinOnBuilder.NewMysqlJoinOnBuilder(config);
+   public override newJoinOnBuilder(): MysqlJoinOnBuilder {
+      return new MysqlJoinOnBuilder(this._mysqlConfig);
    }
 }

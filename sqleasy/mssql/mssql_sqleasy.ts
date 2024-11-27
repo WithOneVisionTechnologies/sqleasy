@@ -34,23 +34,23 @@ export class MssqlSqlEasy implements
 
    public newBuilder(rc?: RuntimeConfiguration): MssqlBuilder {
       if (IsHelper.isNullOrUndefined(rc)) {
-         return MssqlBuilder.NewMssqlBuilder(this._mssqlConfiguration);
+         return new MssqlBuilder(this._mssqlConfiguration);
       }
 
-      return MssqlBuilder.NewMssqlBuilder(new MssqlConfiguration(rc));
+      return new MssqlBuilder(new MssqlConfiguration(rc));
    }
 
    public newMultiBuilder(rc?: RuntimeConfiguration): MssqlMultiBuilder {
       if (IsHelper.isNullOrUndefined(rc)) {
-         return MssqlMultiBuilder.NewMssqlMultiBuilder(
+         return new MssqlMultiBuilder(
             this._mssqlConfiguration,
          );
       }
 
-      return MssqlMultiBuilder.NewMssqlMultiBuilder(new MssqlConfiguration(rc));
+      return new MssqlMultiBuilder(new MssqlConfiguration(rc));
    }
 
    public parser(): MssqlParser {
-      return MssqlParser.NewMssqlParser(this._mssqlConfiguration);
+      return new MssqlParser(this._mssqlConfiguration);
    }
 }

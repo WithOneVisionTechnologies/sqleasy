@@ -14,7 +14,7 @@ export class PostgresSqlEasy implements
       PostgresMultiBuilder,
       PostgresParser
    > {
-   private _mssqlConfiguration: PostgresConfiguration;
+   private _postgresConfig: PostgresConfiguration;
 
    public static NewPostgresSqlEasy(
       rc?: RuntimeConfiguration,
@@ -26,34 +26,34 @@ export class PostgresSqlEasy implements
    }
 
    constructor(rc: RuntimeConfiguration) {
-      this._mssqlConfiguration = new PostgresConfiguration(rc);
+      this._postgresConfig = new PostgresConfiguration(rc);
    }
 
    public configuration(): PostgresConfiguration {
-      return this._mssqlConfiguration;
+      return this._postgresConfig;
    }
 
    public newBuilder(rc?: RuntimeConfiguration): PostgresBuilder {
       if (IsHelper.isNullOrUndefined(rc)) {
-         return PostgresBuilder.NewPostgresBuilder(this._mssqlConfiguration);
+         return new PostgresBuilder(this._postgresConfig);
       }
 
-      return PostgresBuilder.NewPostgresBuilder(new PostgresConfiguration(rc));
+      return new PostgresBuilder(new PostgresConfiguration(rc));
    }
 
    public newMultiBuilder(rc?: RuntimeConfiguration): PostgresMultiBuilder {
       if (IsHelper.isNullOrUndefined(rc)) {
-         return PostgresMultiBuilder.NewPostgresMultiBuilder(
-            this._mssqlConfiguration,
+         return new PostgresMultiBuilder(
+            this._postgresConfig,
          );
       }
 
-      return PostgresMultiBuilder.NewPostgresMultiBuilder(
+      return new PostgresMultiBuilder(
          new PostgresConfiguration(rc),
       );
    }
 
    public parser(): PostgresParser {
-      return PostgresParser.NewPostgresParser(this._mssqlConfiguration);
+      return new PostgresParser(this._postgresConfig);
    }
 }

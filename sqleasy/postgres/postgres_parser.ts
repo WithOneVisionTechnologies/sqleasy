@@ -11,12 +11,6 @@ export class PostgresParser extends DefaultParser {
       this._postgresConfiguration = config;
    }
 
-   public static NewPostgresParser(
-      config: PostgresConfiguration,
-   ): PostgresParser {
-      return new PostgresParser(config);
-   }
-
    public override toSql(
       _state: SqlEasyState,
    ): { sql: string; errors: Error[] | undefined } {
