@@ -2,10 +2,11 @@ import type { IConfiguration } from "../configuration/interface_configuration.ts
 import type { JoinType } from "../enums/join_type.ts";
 import type { OrderByDirection } from "../enums/order_by_direction.ts";
 import type { WhereOperator } from "../enums/where_operator.ts";
+import type { IParser } from "../mod.ts";
 import type { SqlEasyState } from "../state/sqleasy_state.ts";
 import type { IJoinOnBuilder } from "./interface_join_on_builder.ts";
 
-export interface IBuilder<T, U extends IJoinOnBuilder<U>> {
+export interface IBuilder<T, U extends IJoinOnBuilder<U>, V extends IParser> {
    clearAll(): T;
    clearFrom(): T;
    clearJoin(): T;
@@ -74,6 +75,7 @@ export interface IBuilder<T, U extends IJoinOnBuilder<U>> {
    limit(limit: number): T;
    newBuilder(config: IConfiguration): T;
    newJoinOnBuilder(config: IConfiguration): U;
+   newParser(config: IConfiguration): V;
    offset(offset: number): T;
    orderByColumn(
       tableNameOrAlias: string,

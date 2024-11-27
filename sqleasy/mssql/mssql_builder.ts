@@ -4,14 +4,12 @@ import { MssqlJoinOnBuilder } from "./mssql_join_on_builder.ts";
 import { MssqlParser } from "./mssql_parser.ts";
 
 export class MssqlBuilder
-   extends DefaultBuilder<MssqlBuilder, MssqlJoinOnBuilder> {
+   extends DefaultBuilder<MssqlBuilder, MssqlJoinOnBuilder, MssqlParser> {
    private _mssqlConfig: MssqlConfiguration;
-   private _parser: MssqlParser;
 
    constructor(config: MssqlConfiguration) {
       super(config);
       this._mssqlConfig = config;
-      this._parser = new MssqlParser(config);
    }
 
    public override newBuilder(): MssqlBuilder {
@@ -22,12 +20,8 @@ export class MssqlBuilder
       return new MssqlJoinOnBuilder(this._mssqlConfig);
    }
 
-   public override parse(): { sql: string; errors: Error[] | undefined } {
-      return this._parser.toSql(this.state());
-   }
-
-   public override parseRaw(): { sql: string; errors: Error[] | undefined } {
-      return this._parser.toSqlRaw(this.state());
+   public override newParser(): MssqlParser {
+      return new MssqlParser(this._mssqlConfig);
    }
 
    public clearTop(): MssqlBuilder {

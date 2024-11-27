@@ -3,14 +3,16 @@ import { BuilderType } from "../enums/builder_type.ts";
 import { JoinType } from "../enums/join_type.ts";
 import { OrderByDirection } from "../enums/order_by_direction.ts";
 import { WhereOperator } from "../enums/where_operator.ts";
+import type { IParser } from "../parser/interface_parser.ts";
 import { SqlEasyState } from "../state/sqleasy_state.ts";
 import type { IBuilder } from "./interface_builder.ts";
 import type { IJoinOnBuilder } from "./interface_join_on_builder.ts";
 
 export abstract class DefaultBuilder<
-   T extends IBuilder<T, U>,
+   T extends IBuilder<T, U, V>,
    U extends IJoinOnBuilder<U>,
-> implements IBuilder<T, U> {
+   V extends IParser,
+> implements IBuilder<T, U, V> {
    private _sqlEasyState: SqlEasyState = new SqlEasyState();
    private _config: IConfiguration;
 
@@ -20,8 +22,7 @@ export abstract class DefaultBuilder<
 
    public abstract newBuilder(): T;
    public abstract newJoinOnBuilder(): U;
-   public abstract parse(): { sql: string; errors: Error[] | undefined };
-   public abstract parseRaw(): { sql: string; errors: Error[] | undefined };
+   public abstract newParser(): V;
 
    public clearAll = (): T => {
       this._sqlEasyState = new SqlEasyState();
@@ -352,6 +353,15 @@ export abstract class DefaultBuilder<
 
       return this as unknown as T;
    };
+
+   parse(): { sql: string; errors: Error[] | undefined } {
+      const parser = this.newParser();
+      return parser.toSql(this.state());
+   }
+   parseRaw(): { sql: string; errors: Error[] | undefined } {
+      const parser = this.newParser();
+      return parser.toSqlRaw(this.state());
+   }
 
    public selectAll = (): T => {
       this._sqlEasyState.selectStates.push({
