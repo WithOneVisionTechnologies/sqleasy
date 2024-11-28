@@ -354,14 +354,15 @@ export abstract class DefaultBuilder<
       return this as unknown as T;
    };
 
-   parse(): { sql: string; errors: Error[] | undefined } {
+   public parse = (): { sql: string; errors: Error[] | undefined } => {
       const parser = this.newParser();
       return parser.toSql(this.state());
-   }
-   parseRaw(): { sql: string; errors: Error[] | undefined } {
+   };
+
+   public parseRaw = (): { sql: string; errors: Error[] | undefined } => {
       const parser = this.newParser();
       return parser.toSqlRaw(this.state());
-   }
+   };
 
    public selectAll = (): T => {
       this._sqlEasyState.selectStates.push({

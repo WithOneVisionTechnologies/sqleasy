@@ -13,11 +13,11 @@ export class MssqlMultiBuilder
       this._mssqlConfiguration = config;
    }
 
-   public override newBuilder(): MssqlBuilder {
+   public override newBuilder = (): MssqlBuilder => {
       return new MssqlBuilder(this._mssqlConfiguration);
-   }
+   };
 
-   public override newParser(): MssqlParser {
+   public override newParser = (): MssqlParser => {
       return new MssqlParser(this._mssqlConfiguration);
-   }
+   };
 }

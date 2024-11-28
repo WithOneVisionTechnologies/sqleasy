@@ -10,7 +10,7 @@ export class MysqlJoinOnBuilder
       this._mysqlConfig = config;
    }
 
-   public override newJoinOnBuilder(): MysqlJoinOnBuilder {
+   public override newJoinOnBuilder = (): MysqlJoinOnBuilder => {
       return new MysqlJoinOnBuilder(this._mysqlConfig);
-   }
+   };
 }

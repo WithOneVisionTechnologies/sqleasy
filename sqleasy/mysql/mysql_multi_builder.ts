@@ -13,11 +13,11 @@ export class MysqlMultiBuilder
       this._mysqlConfig = config;
    }
 
-   public override newBuilder(): MysqlBuilder {
+   public override newBuilder = (): MysqlBuilder => {
       return new MysqlBuilder(this._mysqlConfig);
-   }
+   };
 
-   public override newParser(): MysqlParser {
+   public override newParser = (): MysqlParser => {
       return new MysqlParser(this._mysqlConfig);
-   }
+   };
 }

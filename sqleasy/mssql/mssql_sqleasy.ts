@@ -14,31 +14,33 @@ export class MssqlSqlEasy implements
    > {
    private _mssqlConfiguration: MssqlConfiguration;
 
-   public static NewMssqlSqlEasy(rc?: RuntimeConfiguration): MssqlSqlEasy {
+   public static NewMssqlSqlEasy = (
+      rc?: RuntimeConfiguration,
+   ): MssqlSqlEasy => {
       if (IsHelper.isNullOrUndefined(rc)) {
          rc = new RuntimeConfiguration();
       }
 
       return new MssqlSqlEasy(rc);
-   }
+   };
 
    constructor(rc: RuntimeConfiguration) {
       this._mssqlConfiguration = new MssqlConfiguration(rc);
    }
 
-   public configuration(): MssqlConfiguration {
+   public configuration = (): MssqlConfiguration => {
       return this._mssqlConfiguration;
-   }
+   };
 
-   public newBuilder(rc?: RuntimeConfiguration): MssqlBuilder {
+   public newBuilder = (rc?: RuntimeConfiguration): MssqlBuilder => {
       if (IsHelper.isNullOrUndefined(rc)) {
          return new MssqlBuilder(this._mssqlConfiguration);
       }
 
       return new MssqlBuilder(new MssqlConfiguration(rc));
-   }
+   };
 
-   public newMultiBuilder(rc?: RuntimeConfiguration): MssqlMultiBuilder {
+   public newMultiBuilder = (rc?: RuntimeConfiguration): MssqlMultiBuilder => {
       if (IsHelper.isNullOrUndefined(rc)) {
          return new MssqlMultiBuilder(
             this._mssqlConfiguration,
@@ -46,5 +48,5 @@ export class MssqlSqlEasy implements
       }
 
       return new MssqlMultiBuilder(new MssqlConfiguration(rc));
-   }
+   };
 }

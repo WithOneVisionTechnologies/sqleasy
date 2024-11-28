@@ -11,16 +11,16 @@ export class MysqlParser extends DefaultParser {
       this._mysqlConfiguration = config;
    }
 
-   public override toSql(
+   public override toSql = (
       _state: SqlEasyState,
-   ): { sql: string; errors: Error[] | undefined } {
+   ): { sql: string; errors: Error[] | undefined } => {
       throw new Error("toSql not implemented for MysqlParser");
-   }
+   };
 
-   public override toSqlMulti(
+   public override toSqlMulti = (
       _states: SqlEasyState[],
       _transactionState: MultiBuilderTransactionState,
-   ): { sql: string; errors: Error[] | undefined } {
+   ): { sql: string; errors: Error[] | undefined } => {
       throw new Error("toSqlMulti not implemented for MysqlParser");
-   }
+   };
 }

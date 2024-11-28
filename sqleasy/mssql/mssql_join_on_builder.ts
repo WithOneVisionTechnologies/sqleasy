@@ -10,7 +10,7 @@ export class MssqlJoinOnBuilder
       this._mssqlConfiguration = config;
    }
 
-   public override newJoinOnBuilder(): MssqlJoinOnBuilder {
+   public override newJoinOnBuilder = (): MssqlJoinOnBuilder => {
       return new MssqlJoinOnBuilder(this._mssqlConfiguration);
-   }
+   };
 }

@@ -14,32 +14,34 @@ export class PostgresSqlEasy implements
    > {
    private _postgresConfig: PostgresConfiguration;
 
-   public static NewPostgresSqlEasy(
+   public static NewPostgresSqlEasy = (
       rc?: RuntimeConfiguration,
-   ): PostgresSqlEasy {
+   ): PostgresSqlEasy => {
       if (IsHelper.isNullOrUndefined(rc)) {
          rc = new RuntimeConfiguration();
       }
       return new PostgresSqlEasy(rc);
-   }
+   };
 
    constructor(rc: RuntimeConfiguration) {
       this._postgresConfig = new PostgresConfiguration(rc);
    }
 
-   public configuration(): PostgresConfiguration {
+   public configuration = (): PostgresConfiguration => {
       return this._postgresConfig;
-   }
+   };
 
-   public newBuilder(rc?: RuntimeConfiguration): PostgresBuilder {
+   public newBuilder = (rc?: RuntimeConfiguration): PostgresBuilder => {
       if (IsHelper.isNullOrUndefined(rc)) {
          return new PostgresBuilder(this._postgresConfig);
       }
 
       return new PostgresBuilder(new PostgresConfiguration(rc));
-   }
+   };
 
-   public newMultiBuilder(rc?: RuntimeConfiguration): PostgresMultiBuilder {
+   public newMultiBuilder = (
+      rc?: RuntimeConfiguration,
+   ): PostgresMultiBuilder => {
       if (IsHelper.isNullOrUndefined(rc)) {
          return new PostgresMultiBuilder(
             this._postgresConfig,
@@ -49,5 +51,5 @@ export class PostgresSqlEasy implements
       return new PostgresMultiBuilder(
          new PostgresConfiguration(rc),
       );
-   }
+   };
 }

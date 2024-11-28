@@ -17,5 +17,8 @@
    },
    "fmt": {
       "indentWidth": 3
+   },
+   "compilerOptions": {
+      "noImplicitOverride": true
    }
 }

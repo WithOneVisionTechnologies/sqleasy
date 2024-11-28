@@ -10,33 +10,37 @@ export class MysqlConfiguration implements IConfiguration {
       this._mysqlRuntimeConfiguration = rc;
    }
 
-   public databaseType(): DatabaseType {
+   public databaseType = (): DatabaseType => {
       return DatabaseType.Mysql;
-   }
+   };
 
-   public defaultOwner(): string {
+   public defaultOwner = (): string => {
       return "";
-   }
+   };
 
-   public identifierDelimiters(): ConfigurationDelimiters {
+   public identifierDelimiters = (): ConfigurationDelimiters => {
       return {
          begin: "`",
          end: "`",
       };
-   }
+   };
 
-   public runtimeConfiguration(): RuntimeConfiguration {
+   public preparedStatementPlaceholder = (): string => {
+      return "?";
+   };
+
+   public runtimeConfiguration = (): RuntimeConfiguration => {
       return this._mysqlRuntimeConfiguration;
-   }
+   };
 
-   public stringDelimiter(): string {
+   public stringDelimiter = (): string => {
       return "'";
-   }
+   };
 
-   public transactionDelimiters(): ConfigurationDelimiters {
+   public transactionDelimiters = (): ConfigurationDelimiters => {
       return {
          begin: "START TRANSACTION",
          end: "COMMIT",
       };
-   }
+   };
 }

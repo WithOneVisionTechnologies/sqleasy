@@ -11,16 +11,16 @@ export class PostgresParser extends DefaultParser {
       this._postgresConfiguration = config;
    }
 
-   public override toSql(
+   public override toSql = (
       _state: SqlEasyState,
-   ): { sql: string; errors: Error[] | undefined } {
+   ): { sql: string; errors: Error[] | undefined } => {
       throw new Error("toSql not implemented for PostgresParser");
-   }
+   };
 
-   public override toSqlMulti(
+   public override toSqlMulti = (
       _states: SqlEasyState[],
       _transactionState: MultiBuilderTransactionState,
-   ): { sql: string; errors: Error[] | undefined } {
+   ): { sql: string; errors: Error[] | undefined } => {
       throw new Error("toSqlMulti not implemented for PostgresParser");
-   }
+   };
 }

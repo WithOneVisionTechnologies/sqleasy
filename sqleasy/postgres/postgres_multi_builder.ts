@@ -16,11 +16,11 @@ export class PostgresMultiBuilder extends DefaultMultiBuilder<
       this._postgresConfig = config;
    }
 
-   public override newBuilder(): PostgresBuilder {
+   public override newBuilder = (): PostgresBuilder => {
       return new PostgresBuilder(this._postgresConfig);
-   }
+   };
 
-   public override newParser(): PostgresParser {
+   public override newParser = (): PostgresParser => {
       return new PostgresParser(this._postgresConfig);
-   }
+   };
 }

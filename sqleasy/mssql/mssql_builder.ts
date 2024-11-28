@@ -12,25 +12,25 @@ export class MssqlBuilder
       this._mssqlConfig = config;
    }
 
-   public override newBuilder(): MssqlBuilder {
+   public override newBuilder = (): MssqlBuilder => {
       return new MssqlBuilder(this._mssqlConfig);
-   }
+   };
 
-   public override newJoinOnBuilder(): MssqlJoinOnBuilder {
+   public override newJoinOnBuilder = (): MssqlJoinOnBuilder => {
       return new MssqlJoinOnBuilder(this._mssqlConfig);
-   }
+   };
 
-   public override newParser(): MssqlParser {
+   public override newParser = (): MssqlParser => {
       return new MssqlParser(this._mssqlConfig);
-   }
+   };
 
-   public clearTop(): MssqlBuilder {
+   public clearTop = (): MssqlBuilder => {
       delete this.state().customState["top"];
       return this;
-   }
+   };
 
-   public top(top: number): MssqlBuilder {
+   public top = (top: number): MssqlBuilder => {
       this.state().customState["top"] = top;
       return this;
-   }
+   };
 }

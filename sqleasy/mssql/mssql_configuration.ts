@@ -25,6 +25,10 @@ export class MssqlConfiguration implements IConfiguration {
       };
    };
 
+   public preparedStatementPlaceholder = (): string => {
+      return "?";
+   };
+
    public runtimeConfiguration = (): RuntimeConfiguration => {
       return this._mssqlRuntimeConfiguration;
    };

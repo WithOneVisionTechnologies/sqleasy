@@ -20,17 +20,17 @@ export abstract class DefaultParser {
       transactionState: MultiBuilderTransactionState,
    ): { sql: string; errors: Error[] | undefined };
 
-   public toSqlRaw(
+   public toSqlRaw = (
       state: SqlEasyState,
-   ): { sql: string; errors: Error[] | undefined } {
+   ): { sql: string; errors: Error[] | undefined } => {
       const sqlHelper = defaultToSql(state, this._config, ParserMode.Raw);
       return { sql: sqlHelper.getSqlDebug(), errors: sqlHelper.getErrors() };
-   }
+   };
 
-   public toSqlMultiRaw(
+   public toSqlMultiRaw = (
       states: SqlEasyState[],
       transactionState: MultiBuilderTransactionState,
-   ): { sql: string; errors: Error[] | undefined } {
+   ): { sql: string; errors: Error[] | undefined } => {
       let sqlRaw = "";
 
       if (transactionState === MultiBuilderTransactionState.TransactionOn) {
@@ -50,5 +50,5 @@ export abstract class DefaultParser {
       }
 
       return { sql: sqlRaw, errors: undefined };
-   }
+   };
 }

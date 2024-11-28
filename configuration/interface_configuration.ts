@@ -6,6 +6,7 @@ export interface IConfiguration {
    databaseType(): DatabaseType;
    defaultOwner(): string;
    identifierDelimiters(): ConfigurationDelimiters;
+   preparedStatementPlaceholder(): string;
    runtimeConfiguration(): RuntimeConfiguration;
    stringDelimiter(): string;
    transactionDelimiters(): ConfigurationDelimiters;

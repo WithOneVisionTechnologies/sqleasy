@@ -16,4 +16,5 @@ export class SqlEasyState {
    offset: number = 0;
    distinct: boolean = false;
    customState: any | undefined = undefined;
+   errors: Error[] = [];
 }

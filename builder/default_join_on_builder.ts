@@ -15,7 +15,7 @@ export abstract class DefaultJoinOnBuilder<T extends IJoinOnBuilder<T>>
 
    public abstract newJoinOnBuilder(): T;
 
-   public and(): T {
+   public and = (): T => {
       this._states.push({
          joinOperator: JoinOperator.None,
          joinOnOperator: JoinOnOperator.And,
@@ -28,15 +28,15 @@ export abstract class DefaultJoinOnBuilder<T extends IJoinOnBuilder<T>>
       });
 
       return this as unknown as T;
-   }
+   };
 
-   public on(
+   public on = (
       aliasLeft: string,
       columnLeft: string,
       joinOperator: JoinOperator,
       aliasRight: string,
       columnRight: string,
-   ): T {
+   ): T => {
       this._states.push({
          joinOperator,
          joinOnOperator: JoinOnOperator.On,
@@ -49,9 +49,9 @@ export abstract class DefaultJoinOnBuilder<T extends IJoinOnBuilder<T>>
       });
 
       return this as unknown as T;
-   }
+   };
 
-   public onGroup(builder: (builder: T) => void): T {
+   public onGroup = (builder: (builder: T) => void): T => {
       this._states.push({
          joinOperator: JoinOperator.None,
          joinOnOperator: JoinOnOperator.GroupBegin,
@@ -78,9 +78,9 @@ export abstract class DefaultJoinOnBuilder<T extends IJoinOnBuilder<T>>
       });
 
       return this as unknown as T;
-   }
+   };
 
-   public onRaw(raw: string): T {
+   public onRaw = (raw: string): T => {
       this._states.push({
          joinOperator: JoinOperator.None,
          joinOnOperator: JoinOnOperator.Raw,
@@ -92,14 +92,14 @@ export abstract class DefaultJoinOnBuilder<T extends IJoinOnBuilder<T>>
          valueRight: undefined,
       });
       return this as unknown as T;
-   }
+   };
 
-   public onValue(
+   public onValue = (
       aliasLeft: string,
       columnLeft: string,
       joinOperator: JoinOperator,
       valueRight: any,
-   ): T {
+   ): T => {
       this._states.push({
          joinOperator,
          joinOnOperator: JoinOnOperator.Value,
@@ -111,9 +111,9 @@ export abstract class DefaultJoinOnBuilder<T extends IJoinOnBuilder<T>>
          valueRight,
       });
       return this as unknown as T;
-   }
+   };
 
-   public or(): T {
+   public or = (): T => {
       this._states.push({
          joinOperator: JoinOperator.None,
          joinOnOperator: JoinOnOperator.Or,
@@ -126,9 +126,9 @@ export abstract class DefaultJoinOnBuilder<T extends IJoinOnBuilder<T>>
       });
 
       return this as unknown as T;
-   }
+   };
 
-   public states(): JoinOnState[] {
+   public states = (): JoinOnState[] => {
       return this._states;
-   }
+   };
 }

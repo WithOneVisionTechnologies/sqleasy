@@ -18,8 +18,7 @@ export class SqlHelper {
    public addDynamicValue = (value: any): string => {
       if (this._parserMode === ParserMode.Prepared) {
          this._values.push(value);
-         return this._config.runtimeConfiguration()
-            .preparedStatementPlaceholder;
+         return this._config.preparedStatementPlaceholder();
       }
 
       return this.getValueStringFromDataType(value);
@@ -77,7 +76,7 @@ export class SqlHelper {
 
       this._values.forEach((value) => {
          const valuePosition = sqlString.indexOf(
-            this._config.runtimeConfiguration().preparedStatementPlaceholder,
+            this._config.preparedStatementPlaceholder(),
          );
 
          if (valuePosition === -1) {

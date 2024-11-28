@@ -14,30 +14,32 @@ export class MysqlSqlEasy implements
    > {
    private _mssqlConfiguration: MysqlConfiguration;
 
-   public static NewMysqlSqlEasy(rc?: RuntimeConfiguration): MysqlSqlEasy {
+   public static NewMysqlSqlEasy = (
+      rc?: RuntimeConfiguration,
+   ): MysqlSqlEasy => {
       if (IsHelper.isNullOrUndefined(rc)) {
          rc = new RuntimeConfiguration();
       }
       return new MysqlSqlEasy(rc);
-   }
+   };
 
    constructor(rc: RuntimeConfiguration) {
       this._mssqlConfiguration = new MysqlConfiguration(rc);
    }
 
-   public configuration(): MysqlConfiguration {
+   public configuration = (): MysqlConfiguration => {
       return this._mssqlConfiguration;
-   }
+   };
 
-   public newBuilder(rc?: RuntimeConfiguration): MysqlBuilder {
+   public newBuilder = (rc?: RuntimeConfiguration): MysqlBuilder => {
       if (IsHelper.isNullOrUndefined(rc)) {
          return new MysqlBuilder(this._mssqlConfiguration);
       }
 
       return new MysqlBuilder(new MysqlConfiguration(rc));
-   }
+   };
 
-   public newMultiBuilder(rc?: RuntimeConfiguration): MysqlMultiBuilder {
+   public newMultiBuilder = (rc?: RuntimeConfiguration): MysqlMultiBuilder => {
       if (IsHelper.isNullOrUndefined(rc)) {
          return new MysqlMultiBuilder(
             this._mssqlConfiguration,
@@ -45,5 +47,5 @@ export class MysqlSqlEasy implements
       }
 
       return new MysqlMultiBuilder(new MysqlConfiguration(rc));
-   }
+   };
 }

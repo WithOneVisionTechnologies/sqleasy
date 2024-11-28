@@ -14,9 +14,9 @@ export class MssqlParser extends DefaultParser {
       this._mssqlConfiguration = config;
    }
 
-   public override toSql(
+   public override toSql = (
       state: SqlEasyState,
-   ): { sql: string; errors: Error[] | undefined } {
+   ): { sql: string; errors: Error[] | undefined } => {
       const paramsString = new SqlHelper(
          this._mssqlConfiguration,
          ParserMode.Prepared,
@@ -52,8 +52,7 @@ export class MssqlParser extends DefaultParser {
 
       for (const value of sqlHelper.getValues()) {
          const valuePosition = sql.indexOf(
-            this._mssqlConfiguration.runtimeConfiguration()
-               .preparedStatementPlaceholder,
+            this._mssqlConfiguration.preparedStatementPlaceholder(),
          );
 
          if (valuePosition === -1) {
@@ -108,16 +107,16 @@ export class MssqlParser extends DefaultParser {
       }
 
       return { sql: finalString.getSql(), errors: finalString.getErrors() };
-   }
+   };
 
-   public override toSqlMulti(
+   public override toSqlMulti = (
       _states: SqlEasyState[],
       _transactionState: MultiBuilderTransactionState,
-   ): { sql: string; errors: Error[] | undefined } {
+   ): { sql: string; errors: Error[] | undefined } => {
       throw new Error("toSqlMulti not implemented for MssqlParser");
-   }
+   };
 
-   private getParameterType(value: any): string {
+   private getParameterType = (value: any): string => {
       const typeOf = typeof value;
 
       switch (typeOf) {
@@ -142,5 +141,5 @@ export class MssqlParser extends DefaultParser {
          default:
             return "nvarchar(max)";
       }
-   }
+   };
 }

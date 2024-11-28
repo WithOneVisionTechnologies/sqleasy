@@ -10,33 +10,37 @@ export class PostgresConfiguration implements IConfiguration {
       this._postgresRuntimeConfiguration = rc;
    }
 
-   public databaseType(): DatabaseType {
+   public databaseType = (): DatabaseType => {
       return DatabaseType.Postgres;
-   }
+   };
 
-   public defaultOwner(): string {
+   public defaultOwner = (): string => {
       return "public";
-   }
+   };
 
-   public identifierDelimiters(): ConfigurationDelimiters {
+   public identifierDelimiters = (): ConfigurationDelimiters => {
       return {
          begin: '"',
          end: '"',
       };
-   }
+   };
 
-   public runtimeConfiguration(): RuntimeConfiguration {
+   public preparedStatementPlaceholder = (): string => {
+      return "$";
+   };
+
+   public runtimeConfiguration = (): RuntimeConfiguration => {
       return this._postgresRuntimeConfiguration;
-   }
+   };
 
-   public stringDelimiter(): string {
+   public stringDelimiter = (): string => {
       return "'";
-   }
+   };
 
-   public transactionDelimiters(): ConfigurationDelimiters {
+   public transactionDelimiters = (): ConfigurationDelimiters => {
       return {
          begin: "BEGIN",
          end: "COMMIT",
       };
-   }
+   };
 }

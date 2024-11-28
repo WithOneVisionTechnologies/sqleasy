@@ -10,7 +10,7 @@ export class PostgresJoinOnBuilder
       this._postgresConfig = config;
    }
 
-   public override newJoinOnBuilder(): PostgresJoinOnBuilder {
+   public override newJoinOnBuilder = (): PostgresJoinOnBuilder => {
       return new PostgresJoinOnBuilder(this._postgresConfig);
-   }
+   };
 }

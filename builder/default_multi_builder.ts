@@ -23,15 +23,15 @@ export abstract class DefaultMultiBuilder<
    public abstract newBuilder(): T;
    public abstract newParser(): V;
 
-   public addBuilder(builderName: string): T {
+   public addBuilder = (builderName: string): T => {
       const newBuilder = this.newBuilder();
       newBuilder.state().builderName = builderName;
       this._states.push(newBuilder.state());
 
       return newBuilder;
-   }
+   };
 
-   parse(): { sql: string; errors: Error[] | undefined } {
+   public parse = (): { sql: string; errors: Error[] | undefined } => {
       const parser = this.newParser();
       const { sql, errors } = parser.toSqlMulti(
          this._states,
@@ -39,8 +39,9 @@ export abstract class DefaultMultiBuilder<
       );
 
       return { sql, errors };
-   }
-   parseRaw(): { sql: string; errors: Error[] | undefined } {
+   };
+
+   public parseRaw = (): { sql: string; errors: Error[] | undefined } => {
       const parser = this.newParser();
       const { sql, errors } = parser.toSqlMultiRaw(
          this._states,
@@ -48,15 +49,15 @@ export abstract class DefaultMultiBuilder<
       );
 
       return { sql, errors };
-   }
+   };
 
-   public removeBuilder(builderName: string): void {
+   public removeBuilder = (builderName: string): void => {
       this._states = this._states.filter((state) =>
          state.builderName !== builderName
       );
-   }
+   };
 
-   public reorderBuilders(builderNames: string[]): void {
+   public reorderBuilders = (builderNames: string[]): void => {
       const newStates: SqlEasyState[] = [];
 
       builderNames.forEach((builderName) => {
@@ -70,19 +71,19 @@ export abstract class DefaultMultiBuilder<
       });
 
       this._states = newStates;
-   }
+   };
 
-   public setTransactionState(
+   public setTransactionState = (
       transactionState: MultiBuilderTransactionState,
-   ): void {
+   ): void => {
       this._transactionState = transactionState;
-   }
+   };
 
-   public states(): SqlEasyState[] {
+   public states = (): SqlEasyState[] => {
       return this._states;
-   }
+   };
 
-   public transactionState(): MultiBuilderTransactionState {
+   public transactionState = (): MultiBuilderTransactionState => {
       return this._transactionState;
-   }
+   };
 }
