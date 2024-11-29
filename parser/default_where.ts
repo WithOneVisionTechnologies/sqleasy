@@ -140,7 +140,7 @@ export const defaultWhere = (
          continue;
       }
 
-      if (state.whereStates[i].builderType === BuilderType.WhereValue) {
+      if (state.whereStates[i].builderType === BuilderType.Where) {
          sqlHelper.addSqlSnippet(
             config.identifierDelimiters().begin +
                state.whereStates[i].tableNameOrAlias +

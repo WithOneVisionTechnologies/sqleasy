@@ -14,6 +14,7 @@ export enum BuilderType {
    SelectBuilder,
    SelectColumn,
    SelectRaw,
+   Where,
    WhereBetween,
    WhereGroupBegin,
    WhereGroupBuilder,
@@ -27,5 +28,4 @@ export enum BuilderType {
    WhereNotNull,
    WhereNull,
    WhereRaw,
-   WhereValue,
 }

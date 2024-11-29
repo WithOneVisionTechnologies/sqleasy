@@ -112,6 +112,12 @@ export interface IBuilder<T, U extends IJoinOnBuilder<U>, V extends IParser> {
    selectRaws(rawSelects: string[]): T;
    selectWithBuilder(alias: string, builder: (builder: T) => void): T;
    state(): SqlEasyState;
+   where(
+      tableNameOrAlias: string,
+      columnName: string,
+      whereOperator: WhereOperator,
+      value: any,
+   ): T;
    whereBetween(
       tableNameOrAlias: string,
       columnName: string,
@@ -153,10 +159,4 @@ export interface IBuilder<T, U extends IJoinOnBuilder<U>, V extends IParser> {
    whereNull(tableNameOrAlias: string, columnName: string): T;
    whereRaw(rawWhere: string): T;
    whereRaws(rawWheres: string[]): T;
-   whereValue(
-      tableNameOrAlias: string,
-      columnName: string,
-      whereOperator: WhereOperator,
-      value: any,
-   ): T;
 }

@@ -486,6 +486,25 @@ export abstract class DefaultBuilder<
       return this._sqlEasyState;
    };
 
+   public where = (
+      tableNameOrAlias: string,
+      columnName: string,
+      whereOperator: WhereOperator,
+      value: any,
+   ): T => {
+      this._sqlEasyState.whereStates.push({
+         builderType: BuilderType.Where,
+         tableNameOrAlias: tableNameOrAlias,
+         columnName: columnName,
+         whereOperator: whereOperator,
+         raw: undefined,
+         sqlEasyState: undefined,
+         values: [value],
+      });
+
+      return this as unknown as T;
+   };
+
    public whereBetween = (
       tableNameOrAlias: string,
       columnName: string,
@@ -715,25 +734,6 @@ export abstract class DefaultBuilder<
    public whereRaws = (rawWheres: string[]): T => {
       rawWheres.forEach((rawWhere) => {
          this.whereRaw(rawWhere);
-      });
-
-      return this as unknown as T;
-   };
-
-   public whereValue = (
-      tableNameOrAlias: string,
-      columnName: string,
-      whereOperator: WhereOperator,
-      value: any,
-   ): T => {
-      this._sqlEasyState.whereStates.push({
-         builderType: BuilderType.WhereValue,
-         tableNameOrAlias: tableNameOrAlias,
-         columnName: columnName,
-         whereOperator: whereOperator,
-         raw: undefined,
-         sqlEasyState: undefined,
-         values: [value],
       });
 
       return this as unknown as T;
