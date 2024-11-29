@@ -14,16 +14,11 @@ export class MysqlSqlEasy implements
    > {
    private _mssqlConfiguration: MysqlConfiguration;
 
-   public static NewMysqlSqlEasy = (
-      rc?: RuntimeConfiguration,
-   ): MysqlSqlEasy => {
+   constructor(rc?: RuntimeConfiguration) {
       if (IsHelper.isNullOrUndefined(rc)) {
          rc = new RuntimeConfiguration();
       }
-      return new MysqlSqlEasy(rc);
-   };
 
-   constructor(rc: RuntimeConfiguration) {
       this._mssqlConfiguration = new MysqlConfiguration(rc);
    }
 

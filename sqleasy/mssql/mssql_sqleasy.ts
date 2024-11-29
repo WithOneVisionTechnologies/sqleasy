@@ -14,17 +14,11 @@ export class MssqlSqlEasy implements
    > {
    private _mssqlConfiguration: MssqlConfiguration;
 
-   public static NewMssqlSqlEasy = (
-      rc?: RuntimeConfiguration,
-   ): MssqlSqlEasy => {
+   constructor(rc?: RuntimeConfiguration) {
       if (IsHelper.isNullOrUndefined(rc)) {
          rc = new RuntimeConfiguration();
       }
 
-      return new MssqlSqlEasy(rc);
-   };
-
-   constructor(rc: RuntimeConfiguration) {
       this._mssqlConfiguration = new MssqlConfiguration(rc);
    }
 

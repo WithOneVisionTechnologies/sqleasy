@@ -14,16 +14,11 @@ export class PostgresSqlEasy implements
    > {
    private _postgresConfig: PostgresConfiguration;
 
-   public static NewPostgresSqlEasy = (
-      rc?: RuntimeConfiguration,
-   ): PostgresSqlEasy => {
+   constructor(rc?: RuntimeConfiguration) {
       if (IsHelper.isNullOrUndefined(rc)) {
          rc = new RuntimeConfiguration();
       }
-      return new PostgresSqlEasy(rc);
-   };
 
-   constructor(rc: RuntimeConfiguration) {
       this._postgresConfig = new PostgresConfiguration(rc);
    }
 

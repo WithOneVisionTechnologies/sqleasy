@@ -2,7 +2,7 @@ import { MssqlSqlEasy } from "../../mod.ts";
 import { assertEquals } from "@std/assert";
 
 Deno.test("select all", () => {
-   const sqlEasy = MssqlSqlEasy.NewMssqlSqlEasy();
+   const sqlEasy = new MssqlSqlEasy();
    const builder = sqlEasy.newBuilder();
    builder.selectAll().fromTable("users", "u");
 
