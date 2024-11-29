@@ -3,8 +3,10 @@ import { BuilderType } from "../enums/builder_type.ts";
 import { JoinOnOperator } from "../enums/join_on_operator.ts";
 import { JoinOperator } from "../enums/join_operator.ts";
 import { JoinType } from "../enums/join_type.ts";
+import { ParserArea } from "../enums/parser_area.ts";
 import type { ParserMode } from "../enums/parser_mode.ts";
 import { SqlHelper } from "../helpers/sql_helper.ts";
+import { ParserError } from "../helpers/parser_error.ts";
 import type { JoinOnState } from "../state/join_on_state.ts";
 import type { SqlEasyState } from "../state/sqleasy_state.ts";
 import { defaultToSql } from "./default_to_sql.ts";
@@ -92,11 +94,6 @@ export const defaultJoin = (
             mode,
          );
 
-         if (subHelper.hasErrors()) {
-            sqlHelper.addErrors(subHelper.getErrors());
-            return sqlHelper;
-         }
-
          sqlHelper.addSqlSnippet("(" + subHelper.getSql() + ")");
 
          if (joinState.alias !== "") {
@@ -135,11 +132,10 @@ const defaultJoinOns = (
          (joinOnStates[i].joinOnOperator === JoinOnOperator.And ||
             joinOnStates[i].joinOnOperator === JoinOnOperator.Or)
       ) {
-         sqlHelper.addErrorFromString(
-            "JOIN: First JOIN ON operator cannot be AND or OR",
+         throw new ParserError(
+            ParserArea.Join,
+            "First JOIN ON operator cannot be AND or OR",
          );
-
-         return sqlHelper;
       }
 
       if (
@@ -147,11 +143,10 @@ const defaultJoinOns = (
          (joinOnStates[i].joinOnOperator === JoinOnOperator.And ||
             joinOnStates[i].joinOnOperator === JoinOnOperator.Or)
       ) {
-         sqlHelper.addErrorFromString(
-            "JOIN: AND or OR cannot be used as the last JOIN ON operator",
+         throw new ParserError(
+            ParserArea.Join,
+            "AND or OR cannot be used as the last JOIN ON operator",
          );
-
-         return sqlHelper;
       }
 
       if (
@@ -161,11 +156,10 @@ const defaultJoinOns = (
                joinOnStates[i - 1].joinOnOperator === JoinOnOperator.Or
             )
       ) {
-         sqlHelper.addErrorFromString(
-            "JOIN: AND or OR cannot be used consecutively",
+         throw new ParserError(
+            ParserArea.Join,
+            "AND or OR cannot be used consecutively",
          );
-
-         return sqlHelper;
       }
 
       if (
@@ -174,32 +168,29 @@ const defaultJoinOns = (
                joinOnStates[i - 1].joinOnOperator === JoinOnOperator.GroupBegin
             )
       ) {
-         sqlHelper.addErrorFromString(
-            "JOIN: AND or OR cannot be used directly after a group begin",
+         throw new ParserError(
+            ParserArea.Join,
+            "AND or OR cannot be used directly after a group begin",
          );
-
-         return sqlHelper;
       }
 
       if (
          joinOnStates[i].joinOnOperator === JoinOnOperator.GroupBegin &&
          i === joinOnStates.length - 1
       ) {
-         sqlHelper.addErrorFromString(
-            "JOIN: Group begin cannot be the last JOIN ON operator",
+         throw new ParserError(
+            ParserArea.Join,
+            "Group begin cannot be the last JOIN ON operator",
          );
-
-         return sqlHelper;
       }
 
       if (
          joinOnStates[i].joinOnOperator === JoinOnOperator.GroupEnd && i === 0
       ) {
-         sqlHelper.addErrorFromString(
-            "JOIN: Group end cannot be the first JOIN ON operator",
+         throw new ParserError(
+            ParserArea.Join,
+            "Group end cannot be the first JOIN ON operator",
          );
-
-         return sqlHelper;
       }
 
       if (joinOnStates[i].joinOnOperator === JoinOnOperator.And) {

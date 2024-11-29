@@ -354,12 +354,12 @@ export abstract class DefaultBuilder<
       return this as unknown as T;
    };
 
-   public parse = (): { sql: string; errors: Error[] | undefined } => {
+   public parse = (): string => {
       const parser = this.newParser();
       return parser.toSql(this.state());
    };
 
-   public parseRaw = (): { sql: string; errors: Error[] | undefined } => {
+   public parseRaw = (): string => {
       const parser = this.newParser();
       return parser.toSqlRaw(this.state());
    };

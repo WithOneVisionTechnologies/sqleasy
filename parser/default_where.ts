@@ -1,8 +1,10 @@
 import type { IConfiguration } from "../configuration/interface_configuration.ts";
 import { BuilderType } from "../enums/builder_type.ts";
+import { ParserArea } from "../enums/parser_area.ts";
 import type { ParserMode } from "../enums/parser_mode.ts";
 import { WhereOperator } from "../enums/where_operator.ts";
-import { SqlHelper } from "../mod.ts";
+import { SqlHelper } from "../helpers/sql_helper.ts";
+import { ParserError } from "../helpers/parser_error.ts";
 import type { SqlEasyState } from "../state/sqleasy_state.ts";
 import { defaultToSql } from "./default_to_sql.ts";
 
@@ -25,11 +27,10 @@ export const defaultWhere = (
          (state.whereStates[i].builderType === BuilderType.WhereAnd ||
             state.whereStates[i].builderType === BuilderType.WhereOr)
       ) {
-         sqlHelper.addErrorFromString(
-            "WHERE: First WHERE operator cannot be AND or OR",
+         throw new ParserError(
+            ParserArea.Where,
+            "First WHERE operator cannot be AND or OR",
          );
-
-         return sqlHelper;
       }
 
       if (
@@ -37,11 +38,10 @@ export const defaultWhere = (
          (state.whereStates[i].builderType === BuilderType.WhereAnd ||
             state.whereStates[i].builderType === BuilderType.WhereOr)
       ) {
-         sqlHelper.addErrorFromString(
-            "WHERE: AND or OR cannot be used as the last WHERE operator",
+         throw new ParserError(
+            ParserArea.Where,
+            "AND or OR cannot be used as the last WHERE operator",
          );
-
-         return sqlHelper;
       }
 
       if (
@@ -51,11 +51,10 @@ export const defaultWhere = (
                state.whereStates[i - 1].builderType === BuilderType.WhereOr
             )
       ) {
-         sqlHelper.addErrorFromString(
-            "WHERE: AND or OR cannot be used consecutively",
+         throw new ParserError(
+            ParserArea.Where,
+            "AND or OR cannot be used consecutively",
          );
-
-         return sqlHelper;
       }
 
       if (
@@ -65,33 +64,30 @@ export const defaultWhere = (
                   BuilderType.WhereGroupBegin
             )
       ) {
-         sqlHelper.addErrorFromString(
-            "WHERE: AND or OR cannot be used directly after a group begin",
+         throw new ParserError(
+            ParserArea.Where,
+            "AND or OR cannot be used directly after a group begin",
          );
-
-         return sqlHelper;
       }
 
       if (
          state.whereStates[i].builderType === BuilderType.WhereGroupBegin &&
          i === state.whereStates.length - 1
       ) {
-         sqlHelper.addErrorFromString(
-            "WHERE: Group begin cannot be the last WHERE operator",
+         throw new ParserError(
+            ParserArea.Where,
+            "Group begin cannot be the last WHERE operator",
          );
-
-         return sqlHelper;
       }
 
       if (
          state.whereStates[i].builderType === BuilderType.WhereGroupEnd &&
          i === 0
       ) {
-         sqlHelper.addErrorFromString(
-            "WHERE: Group end cannot be the first WHERE operator",
+         throw new ParserError(
+            ParserArea.Where,
+            "Group end cannot be the first WHERE operator",
          );
-
-         return sqlHelper;
       }
 
       if (state.whereStates[i].builderType === BuilderType.WhereAnd) {
@@ -233,11 +229,6 @@ export const defaultWhere = (
             mode,
          );
 
-         if (subHelper.hasErrors()) {
-            sqlHelper.addErrors(subHelper.getErrors());
-            return sqlHelper;
-         }
-
          sqlHelper.addSqlSnippet(subHelper.getSql());
          sqlHelper.addSqlSnippet(")");
 
@@ -269,11 +260,6 @@ export const defaultWhere = (
             config,
             mode,
          );
-
-         if (subHelper.hasErrors()) {
-            sqlHelper.addErrors(subHelper.getErrors());
-            return sqlHelper;
-         }
 
          sqlHelper.addSqlSnippet(subHelper.getSql());
          sqlHelper.addSqlSnippet(")");
@@ -335,11 +321,6 @@ export const defaultWhere = (
             mode,
          );
 
-         if (subHelper.hasErrors()) {
-            sqlHelper.addErrors(subHelper.getErrors());
-            return sqlHelper;
-         }
-
          sqlHelper.addSqlSnippet(subHelper.getSql());
          sqlHelper.addSqlSnippet(")");
 
@@ -371,11 +352,6 @@ export const defaultWhere = (
             config,
             mode,
          );
-
-         if (subHelper.hasErrors()) {
-            sqlHelper.addErrors(subHelper.getErrors());
-            return sqlHelper;
-         }
 
          sqlHelper.addSqlSnippet(subHelper.getSql());
          sqlHelper.addSqlSnippet(")");

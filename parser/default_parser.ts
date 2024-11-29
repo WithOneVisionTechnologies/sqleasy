@@ -1,4 +1,3 @@
-import IsHelper from "@withonevision/is-helper";
 import type { IConfiguration } from "../configuration/interface_configuration.ts";
 import { MultiBuilderTransactionState } from "../enums/multi_builder_transaction_state.ts";
 import { ParserMode } from "../enums/parser_mode.ts";
@@ -14,23 +13,23 @@ export abstract class DefaultParser {
 
    public abstract toSql(
       state: SqlEasyState,
-   ): { sql: string; errors: Error[] | undefined };
+   ): string;
    public abstract toSqlMulti(
       states: SqlEasyState[],
       transactionState: MultiBuilderTransactionState,
-   ): { sql: string; errors: Error[] | undefined };
+   ): string;
 
    public toSqlRaw = (
       state: SqlEasyState,
-   ): { sql: string; errors: Error[] | undefined } => {
+   ): string => {
       const sqlHelper = defaultToSql(state, this._config, ParserMode.Raw);
-      return { sql: sqlHelper.getSqlDebug(), errors: sqlHelper.getErrors() };
+      return sqlHelper.getSqlDebug();
    };
 
    public toSqlMultiRaw = (
       states: SqlEasyState[],
       transactionState: MultiBuilderTransactionState,
-   ): { sql: string; errors: Error[] | undefined } => {
+   ): string => {
       let sqlRaw = "";
 
       if (transactionState === MultiBuilderTransactionState.TransactionOn) {
@@ -38,10 +37,7 @@ export abstract class DefaultParser {
       }
 
       for (const state of states) {
-         const { sql, errors } = this.toSqlRaw(state);
-         if (!IsHelper.isNullOrUndefined(errors) && errors.length > 0) {
-            return { sql: "", errors: errors };
-         }
+         const sql = this.toSqlRaw(state);
          sqlRaw += sql;
       }
 
@@ -49,6 +45,6 @@ export abstract class DefaultParser {
          sqlRaw += this._config.transactionDelimiters().end + "; ";
       }
 
-      return { sql: sqlRaw, errors: undefined };
+      return sqlRaw;
    };
 }

@@ -1,6 +1,7 @@
 import type { MultiBuilderTransactionState } from "../../enums/multi_builder_transaction_state.ts";
 import { ParserMode } from "../../enums/parser_mode.ts";
 import { SqlHelper } from "../../helpers/sql_helper.ts";
+import { ParserError } from "../../helpers/parser_error.ts";
 import { DefaultParser } from "../../parser/default_parser.ts";
 import { defaultToSql } from "../../parser/default_to_sql.ts";
 import type { SqlEasyState } from "../../state/sqleasy_state.ts";
@@ -16,7 +17,7 @@ export class MssqlParser extends DefaultParser {
 
    public override toSql = (
       state: SqlEasyState,
-   ): { sql: string; errors: Error[] | undefined } => {
+   ): string => {
       const paramsString = new SqlHelper(
          this._mssqlConfiguration,
          ParserMode.Prepared,
@@ -32,20 +33,13 @@ export class MssqlParser extends DefaultParser {
          ParserMode.Prepared,
       );
 
-      if (sqlHelper.hasErrors()) {
-         return { sql: "", errors: sqlHelper.getErrors() };
-      }
-
       let sql = sqlHelper.getSql();
       sql = sql.replaceAll("'", "''");
 
       if (sql.length > 4000) {
-         return {
-            sql: "",
-            errors: [
-               new Error("SQL string is too long for Mssql prepared statement"),
-            ],
-         };
+         throw new ParserError(
+            "SQL string is too long for Mssql prepared statement",
+         );
       }
 
       let valueCounter: number = 0;
@@ -74,12 +68,9 @@ export class MssqlParser extends DefaultParser {
       }
 
       if (paramsString.getSql().length > 4000) {
-         return {
-            sql: "",
-            errors: [
-               new Error("SQL string is too long for Mssql prepared statement"),
-            ],
-         };
+         throw new ParserError(
+            "SQL string is too long for Mssql prepared statement",
+         );
       }
 
       finalString.addSqlSnippet("SET NOCOUNT ON; ");
@@ -102,18 +93,16 @@ export class MssqlParser extends DefaultParser {
 
       finalString.addSqlSnippet(";");
 
-      if (finalString.hasErrors()) {
-         return { sql: "", errors: finalString.getErrors() };
-      }
-
-      return { sql: finalString.getSql(), errors: finalString.getErrors() };
+      return finalString.getSql();
    };
 
    public override toSqlMulti = (
       _states: SqlEasyState[],
       _transactionState: MultiBuilderTransactionState,
-   ): { sql: string; errors: Error[] | undefined } => {
-      throw new Error("toSqlMulti not implemented for MssqlParser");
+   ): string => {
+      throw new ParserError(
+         "toSqlMulti not implemented for MssqlParser",
+      );
    };
 
    private getParameterType = (value: any): string => {

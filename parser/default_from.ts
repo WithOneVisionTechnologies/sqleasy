@@ -1,8 +1,10 @@
 import type { IConfiguration } from "../configuration/interface_configuration.ts";
 import { BuilderType } from "../enums/builder_type.ts";
 import { DatabaseType } from "../enums/database_type.ts";
+import { ParserArea } from "../enums/parser_area.ts";
 import type { ParserMode } from "../enums/parser_mode.ts";
 import { SqlHelper } from "../helpers/sql_helper.ts";
+import { ParserError } from "../helpers/parser_error.ts";
 import type { SqlEasyState } from "../state/sqleasy_state.ts";
 import { defaultToSql } from "./default_to_sql.ts";
 
@@ -14,8 +16,7 @@ export const defaultFrom = (
    const sqlHelper = new SqlHelper(config, mode);
 
    if (state.fromStates.length === 0) {
-      sqlHelper.addErrorFromString("FROM: No tables to select from");
-      return sqlHelper;
+      throw new ParserError(ParserArea.From, "No tables to select from");
    }
 
    sqlHelper.addSqlSnippet("FROM ");
@@ -34,10 +35,10 @@ export const defaultFrom = (
             fromState.owner !== "" &&
             config.databaseType() === DatabaseType.Mysql
          ) {
-            sqlHelper.addErrorFromString(
-               "FROM: MySQL does not support table owners",
+            throw new ParserError(
+               ParserArea.From,
+               "MySQL does not support table owners",
             );
-            return;
          }
 
          if (fromState.owner !== "") {
@@ -74,11 +75,6 @@ export const defaultFrom = (
             config,
             mode,
          );
-
-         if (subHelper.hasErrors()) {
-            sqlHelper.addErrors(subHelper.getErrors());
-            return sqlHelper;
-         }
 
          sqlHelper.addSqlSnippet("(" + subHelper.getSql() + ")");
 

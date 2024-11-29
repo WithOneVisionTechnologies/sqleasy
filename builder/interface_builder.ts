@@ -91,8 +91,8 @@ export interface IBuilder<T, U extends IJoinOnBuilder<U>, V extends IParser> {
    ): T;
    orderByRaw(rawOrderBy: string): T;
    orderByRaws(rawOrderBys: string[]): T;
-   parse(): { sql: string; errors: Error[] | undefined };
-   parseRaw(): { sql: string; errors: Error[] | undefined };
+   parse(): string;
+   parseRaw(): string;
    selectAll(): T;
    selectColumn(
       tableNameOrAlias: string,

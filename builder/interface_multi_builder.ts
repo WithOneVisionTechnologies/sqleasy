@@ -10,8 +10,8 @@ export interface IMultiBuilder<
    V extends IParser,
 > {
    addBuilder(builderName: string): T;
-   parse(): { sql: string; errors: Error[] | undefined };
-   parseRaw(): { sql: string; errors: Error[] | undefined };
+   parse(): string;
+   parseRaw(): string;
    removeBuilder(builderName: string): void;
    reorderBuilders(builderNames: string[]): void;
    setTransactionState(transactionState: MultiBuilderTransactionState): void;

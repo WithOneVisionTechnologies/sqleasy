@@ -4,6 +4,8 @@ import { DatabaseType } from "../enums/database_type.ts";
 import type { ParserMode } from "../enums/parser_mode.ts";
 import { SqlHelper } from "../helpers/sql_helper.ts";
 import type { SqlEasyState } from "../state/sqleasy_state.ts";
+import { ParserError } from "../helpers/parser_error.ts";
+import { ParserArea } from "../enums/parser_area.ts";
 
 export const defaultLimitOffset = (
    state: SqlEasyState,
@@ -52,11 +54,10 @@ export const defaultLimitOffset = (
          !IsHelper.isNullOrUndefined(state.customState["top"]) &&
          (state.limit > 0 || state.offset > 0)
       ) {
-         sqlHelper.addErrorFromString(
-            "LIMIT-OFFSET: MSSQL should not use both TOP and LIMIT/OFFSET in the same query",
+         throw new ParserError(
+            ParserArea.LimitOffset,
+            "MSSQL should not use both TOP and LIMIT/OFFSET in the same query",
          );
-
-         return sqlHelper;
       }
 
       if (state.limit > 0 || state.offset > 0) {
@@ -79,11 +80,10 @@ export const defaultLimitOffset = (
       (IsHelper.isNullOrUndefined(state.orderByStates) ||
          state.orderByStates.length == 0)
    ) {
-      sqlHelper.addErrorFromString(
-         "LIMIT-OFFSET: ORDER BY is required when using OFFSET",
+      throw new ParserError(
+         ParserArea.LimitOffset,
+         "ORDER BY is required when using OFFSET",
       );
-
-      return sqlHelper;
    }
 
    return sqlHelper;

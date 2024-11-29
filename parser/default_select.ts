@@ -6,6 +6,8 @@ import { SqlHelper } from "../helpers/sql_helper.ts";
 import type { SqlEasyState } from "../state/sqleasy_state.ts";
 import { BuilderType } from "../enums/builder_type.ts";
 import { defaultToSql } from "./default_to_sql.ts";
+import { ParserError } from "../helpers/parser_error.ts";
+import { ParserArea } from "../enums/parser_area.ts";
 
 export const defaultSelect = (
    state: SqlEasyState,
@@ -15,10 +17,10 @@ export const defaultSelect = (
    const sqlHelper = new SqlHelper(config, mode);
 
    if (state.selectStates.length === 0) {
-      sqlHelper.addErrorFromString(
-         "SELECT: Select statement must have at least one select state",
+      throw new ParserError(
+         ParserArea.Select,
+         "Select statement must have at least one select state",
       );
-      return sqlHelper;
    }
 
    sqlHelper.addSqlSnippet("SELECT ");
@@ -101,11 +103,6 @@ export const defaultSelect = (
             config,
             mode,
          );
-
-         if (subHelper.hasErrors()) {
-            sqlHelper.addErrors(subHelper.getErrors());
-            return sqlHelper;
-         }
 
          sqlHelper.addSqlSnippet(`(${subHelper.getSql()})`);
 

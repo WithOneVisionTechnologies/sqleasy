@@ -5,7 +5,6 @@ import { ParserMode } from "../enums/parser_mode.ts";
 
 export class SqlHelper {
    private _sb = new StringBuilder();
-   private _errors: Error[] = [];
    private _values: any[] = [];
    private _config: IConfiguration;
    private _parserMode: ParserMode;
@@ -24,26 +23,6 @@ export class SqlHelper {
       return this.getValueStringFromDataType(value);
    };
 
-   public addError = (e: Error): void => {
-      this._errors.push(e);
-   };
-
-   public addErrorFromString = (message: string): void => {
-      this._errors.push(new Error(message));
-   };
-
-   public addErrors = (errors: Error[]): void => {
-      errors.forEach((error) => {
-         this._errors.push(error);
-      });
-   };
-
-   public addErrorsFromStrings = (messages: string[]): void => {
-      messages.forEach((message) => {
-         this._errors.push(new Error(message));
-      });
-   };
-
    public addSqlSnippet = (sql: string): void => {
       this._sb.append(sql);
    };
@@ -55,16 +34,7 @@ export class SqlHelper {
 
    public clear = (): void => {
       this._sb = new StringBuilder();
-      this._errors = [];
       this._values = [];
-   };
-
-   public errorStringsContain = (contains: string): boolean => {
-      return this._errors.some((error) => error.message.includes(contains));
-   };
-
-   public getErrors = (): Error[] => {
-      return this._errors;
    };
 
    public getSql = (): string => {
@@ -118,15 +88,5 @@ export class SqlHelper {
          default:
             return value.toString();
       }
-   };
-
-   public hasErrors = (): boolean => {
-      return this._errors.length > 0;
-   };
-
-   public printErrors = (): void => {
-      this._errors.forEach((error) => {
-         console.error(error);
-      });
    };
 }

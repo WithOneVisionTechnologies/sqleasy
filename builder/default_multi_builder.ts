@@ -31,24 +31,24 @@ export abstract class DefaultMultiBuilder<
       return newBuilder;
    };
 
-   public parse = (): { sql: string; errors: Error[] | undefined } => {
+   public parse = (): string => {
       const parser = this.newParser();
-      const { sql, errors } = parser.toSqlMulti(
+      const sql = parser.toSqlMulti(
          this._states,
          this._transactionState,
       );
 
-      return { sql, errors };
+      return sql;
    };
 
-   public parseRaw = (): { sql: string; errors: Error[] | undefined } => {
+   public parseRaw = (): string => {
       const parser = this.newParser();
-      const { sql, errors } = parser.toSqlMultiRaw(
+      const sql = parser.toSqlMultiRaw(
          this._states,
          this._transactionState,
       );
 
-      return { sql, errors };
+      return sql;
    };
 
    public removeBuilder = (builderName: string): void => {
