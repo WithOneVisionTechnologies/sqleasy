@@ -24,8 +24,8 @@ export const defaultWhere = (
    for (let i = 0; i < state.whereStates.length; i++) {
       if (
          i === 0 &&
-         (state.whereStates[i].builderType === BuilderType.WhereAnd ||
-            state.whereStates[i].builderType === BuilderType.WhereOr)
+         (state.whereStates[i].builderType === BuilderType.And ||
+            state.whereStates[i].builderType === BuilderType.Or)
       ) {
          throw new ParserError(
             ParserArea.Where,
@@ -35,8 +35,8 @@ export const defaultWhere = (
 
       if (
          i === state.whereStates.length - 1 &&
-         (state.whereStates[i].builderType === BuilderType.WhereAnd ||
-            state.whereStates[i].builderType === BuilderType.WhereOr)
+         (state.whereStates[i].builderType === BuilderType.And ||
+            state.whereStates[i].builderType === BuilderType.Or)
       ) {
          throw new ParserError(
             ParserArea.Where,
@@ -45,10 +45,10 @@ export const defaultWhere = (
       }
 
       if (
-         (state.whereStates[i].builderType === BuilderType.WhereAnd ||
-            state.whereStates[i].builderType === BuilderType.WhereOr) && (
-               state.whereStates[i - 1].builderType === BuilderType.WhereAnd ||
-               state.whereStates[i - 1].builderType === BuilderType.WhereOr
+         (state.whereStates[i].builderType === BuilderType.And ||
+            state.whereStates[i].builderType === BuilderType.Or) && (
+               state.whereStates[i - 1].builderType === BuilderType.And ||
+               state.whereStates[i - 1].builderType === BuilderType.Or
             )
       ) {
          throw new ParserError(
@@ -58,8 +58,8 @@ export const defaultWhere = (
       }
 
       if (
-         (state.whereStates[i].builderType === BuilderType.WhereAnd ||
-            state.whereStates[i].builderType === BuilderType.WhereOr) && (
+         (state.whereStates[i].builderType === BuilderType.And ||
+            state.whereStates[i].builderType === BuilderType.Or) && (
                state.whereStates[i - 1].builderType ===
                   BuilderType.WhereGroupBegin
             )
@@ -90,7 +90,7 @@ export const defaultWhere = (
          );
       }
 
-      if (state.whereStates[i].builderType === BuilderType.WhereAnd) {
+      if (state.whereStates[i].builderType === BuilderType.And) {
          sqlHelper.addSqlSnippet("AND");
 
          if (i < state.whereStates.length - 1) {
@@ -99,7 +99,7 @@ export const defaultWhere = (
          continue;
       }
 
-      if (state.whereStates[i].builderType === BuilderType.WhereOr) {
+      if (state.whereStates[i].builderType === BuilderType.Or) {
          sqlHelper.addSqlSnippet("OR");
 
          if (

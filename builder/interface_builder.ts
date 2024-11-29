@@ -7,6 +7,7 @@ import type { SqlEasyState } from "../state/sqleasy_state.ts";
 import type { IJoinOnBuilder } from "./interface_join_on_builder.ts";
 
 export interface IBuilder<T, U extends IJoinOnBuilder<U>, V extends IParser> {
+   and(): T;
    clearAll(): T;
    clearFrom(): T;
    clearJoin(): T;
@@ -77,6 +78,7 @@ export interface IBuilder<T, U extends IJoinOnBuilder<U>, V extends IParser> {
    newJoinOnBuilder(config: IConfiguration): U;
    newParser(config: IConfiguration): V;
    offset(offset: number): T;
+   or(): T;
    orderByColumn(
       tableNameOrAlias: string,
       columnName: string,
@@ -110,13 +112,6 @@ export interface IBuilder<T, U extends IJoinOnBuilder<U>, V extends IParser> {
    selectRaws(rawSelects: string[]): T;
    selectWithBuilder(alias: string, builder: (builder: T) => void): T;
    state(): SqlEasyState;
-   where(
-      tableNameOrAlias: string,
-      columnName: string,
-      whereOperator: WhereOperator,
-      value: any,
-   ): T;
-   whereAnd(): T;
    whereBetween(
       tableNameOrAlias: string,
       columnName: string,
@@ -156,7 +151,12 @@ export interface IBuilder<T, U extends IJoinOnBuilder<U>, V extends IParser> {
    ): T;
    whereNotNull(tableNameOrAlias: string, columnName: string): T;
    whereNull(tableNameOrAlias: string, columnName: string): T;
-   whereOr(): T;
    whereRaw(rawWhere: string): T;
    whereRaws(rawWheres: string[]): T;
+   whereValue(
+      tableNameOrAlias: string,
+      columnName: string,
+      whereOperator: WhereOperator,
+      value: any,
+   ): T;
 }

@@ -24,6 +24,20 @@ export abstract class DefaultBuilder<
    public abstract newJoinOnBuilder(): U;
    public abstract newParser(): V;
 
+   public and = (): T => {
+      this._sqlEasyState.whereStates.push({
+         builderType: BuilderType.And,
+         tableNameOrAlias: undefined,
+         columnName: undefined,
+         whereOperator: WhereOperator.None,
+         raw: undefined,
+         sqlEasyState: undefined,
+         values: [],
+      });
+
+      return this as unknown as T;
+   };
+
    public clearAll = (): T => {
       this._sqlEasyState = new SqlEasyState();
       return this as unknown as T;
@@ -300,6 +314,20 @@ export abstract class DefaultBuilder<
       return this as unknown as T;
    };
 
+   public or = (): T => {
+      this._sqlEasyState.whereStates.push({
+         builderType: BuilderType.Or,
+         tableNameOrAlias: undefined,
+         columnName: undefined,
+         whereOperator: WhereOperator.None,
+         raw: undefined,
+         sqlEasyState: undefined,
+         values: [],
+      });
+
+      return this as unknown as T;
+   };
+
    public orderByColumn = (
       tableNameOrAlias: string,
       columnName: string,
@@ -456,39 +484,6 @@ export abstract class DefaultBuilder<
 
    public state = (): SqlEasyState => {
       return this._sqlEasyState;
-   };
-
-   public where = (
-      tableNameOrAlias: string,
-      columnName: string,
-      whereOperator: WhereOperator,
-      value: any,
-   ): T => {
-      this._sqlEasyState.whereStates.push({
-         builderType: BuilderType.WhereAnd,
-         tableNameOrAlias: tableNameOrAlias,
-         columnName: columnName,
-         whereOperator: whereOperator,
-         raw: undefined,
-         sqlEasyState: undefined,
-         values: [value],
-      });
-
-      return this as unknown as T;
-   };
-
-   public whereAnd = (): T => {
-      this._sqlEasyState.whereStates.push({
-         builderType: BuilderType.WhereAnd,
-         tableNameOrAlias: undefined,
-         columnName: undefined,
-         whereOperator: WhereOperator.None,
-         raw: undefined,
-         sqlEasyState: undefined,
-         values: [],
-      });
-
-      return this as unknown as T;
    };
 
    public whereBetween = (
@@ -703,20 +698,6 @@ export abstract class DefaultBuilder<
       return this as unknown as T;
    };
 
-   public whereOr = (): T => {
-      this._sqlEasyState.whereStates.push({
-         builderType: BuilderType.WhereOr,
-         tableNameOrAlias: undefined,
-         columnName: undefined,
-         whereOperator: WhereOperator.None,
-         raw: undefined,
-         sqlEasyState: undefined,
-         values: [],
-      });
-
-      return this as unknown as T;
-   };
-
    public whereRaw = (rawWhere: string): T => {
       this._sqlEasyState.whereStates.push({
          builderType: BuilderType.WhereRaw,
@@ -734,6 +715,25 @@ export abstract class DefaultBuilder<
    public whereRaws = (rawWheres: string[]): T => {
       rawWheres.forEach((rawWhere) => {
          this.whereRaw(rawWhere);
+      });
+
+      return this as unknown as T;
+   };
+
+   public whereValue = (
+      tableNameOrAlias: string,
+      columnName: string,
+      whereOperator: WhereOperator,
+      value: any,
+   ): T => {
+      this._sqlEasyState.whereStates.push({
+         builderType: BuilderType.WhereValue,
+         tableNameOrAlias: tableNameOrAlias,
+         columnName: columnName,
+         whereOperator: whereOperator,
+         raw: undefined,
+         sqlEasyState: undefined,
+         values: [value],
       });
 
       return this as unknown as T;
