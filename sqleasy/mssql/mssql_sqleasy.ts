@@ -5,12 +5,14 @@ import type { MssqlJoinOnBuilder } from "./mssql_join_on_builder.ts";
 import { MssqlMultiBuilder } from "./mssql_multi_builder.ts";
 import type { ISqlEasy } from "../interface_sqleasy.ts";
 import IsHelper from "@withonevision/is-helper";
+import type { MssqlParser } from "./mssql_parser.ts";
 
 export class MssqlSqlEasy implements
    ISqlEasy<
       MssqlBuilder,
       MssqlJoinOnBuilder,
-      MssqlMultiBuilder
+      MssqlMultiBuilder,
+      MssqlParser
    > {
    private _mssqlConfiguration: MssqlConfiguration;
 

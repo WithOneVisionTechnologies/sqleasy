@@ -5,12 +5,14 @@ import type { MysqlJoinOnBuilder } from "./mysql_join_on_builder.ts";
 import { MysqlMultiBuilder } from "./mysql_multi_builder.ts";
 import type { ISqlEasy } from "../interface_sqleasy.ts";
 import IsHelper from "@withonevision/is-helper";
+import type { MysqlParser } from "./mysql_parser.ts";
 
 export class MysqlSqlEasy implements
    ISqlEasy<
       MysqlBuilder,
       MysqlJoinOnBuilder,
-      MysqlMultiBuilder
+      MysqlMultiBuilder,
+      MysqlParser
    > {
    private _mssqlConfiguration: MysqlConfiguration;
 

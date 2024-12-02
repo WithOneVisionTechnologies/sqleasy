@@ -5,12 +5,14 @@ import type { PostgresJoinOnBuilder } from "./postgres_join_on_builder.ts";
 import { PostgresMultiBuilder } from "./postgres_multi_builder.ts";
 import type { ISqlEasy } from "../interface_sqleasy.ts";
 import IsHelper from "@withonevision/is-helper";
+import type { PostgresParser } from "./postgres_parser.ts";
 
 export class PostgresSqlEasy implements
    ISqlEasy<
       PostgresBuilder,
       PostgresJoinOnBuilder,
-      PostgresMultiBuilder
+      PostgresMultiBuilder,
+      PostgresParser
    > {
    private _postgresConfig: PostgresConfiguration;
 

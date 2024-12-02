@@ -1,5 +1,5 @@
 import type { MultiBuilderTransactionState } from "../enums/multi_builder_transaction_state.ts";
-import type { IParser } from "../mod.ts";
+import type { IParser } from "../parser/interface_parser.ts";
 import type { SqlEasyState } from "../state/sqleasy_state.ts";
 import type { IBuilder } from "./interface_builder.ts";
 import type { IJoinOnBuilder } from "./interface_join_on_builder.ts";
