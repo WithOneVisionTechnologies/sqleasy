@@ -1,4 +1,5 @@
 import type { MultiBuilderTransactionState } from "../../enums/multi_builder_transaction_state.ts";
+import { ParserArea } from "../../enums/parser_area.ts";
 import { ParserError } from "../../helpers/parser_error.ts";
 import { DefaultParser } from "../../parser/default_parser.ts";
 import type { SqlEasyState } from "../../state/sqleasy_state.ts";
@@ -15,7 +16,10 @@ export class PostgresParser extends DefaultParser {
    public override toSql = (
       _state: SqlEasyState,
    ): string => {
-      throw new ParserError("toSql not implemented for PostgresParser");
+      throw new ParserError(
+         ParserArea.General,
+         "toSql not implemented for PostgresParser",
+      );
    };
 
    public override toSqlMulti = (
@@ -23,6 +27,7 @@ export class PostgresParser extends DefaultParser {
       _transactionState: MultiBuilderTransactionState,
    ): string => {
       throw new ParserError(
+         ParserArea.General,
          "toSqlMulti not implemented for PostgresParser",
       );
    };

@@ -6,6 +6,7 @@ import { DefaultParser } from "../../parser/default_parser.ts";
 import { defaultToSql } from "../../parser/default_to_sql.ts";
 import type { SqlEasyState } from "../../state/sqleasy_state.ts";
 import type { MssqlConfiguration } from "./mssql_configuration.ts";
+import { ParserArea } from "../../enums/parser_area.ts";
 
 export class MssqlParser extends DefaultParser {
    private _mssqlConfiguration: MssqlConfiguration;
@@ -38,6 +39,7 @@ export class MssqlParser extends DefaultParser {
 
       if (sql.length > 4000) {
          throw new ParserError(
+            ParserArea.General,
             "SQL string is too long for Mssql prepared statement",
          );
       }
@@ -69,6 +71,7 @@ export class MssqlParser extends DefaultParser {
 
       if (paramsString.getSql().length > 4000) {
          throw new ParserError(
+            ParserArea.General,
             "SQL string is too long for Mssql prepared statement",
          );
       }
@@ -101,6 +104,7 @@ export class MssqlParser extends DefaultParser {
       _transactionState: MultiBuilderTransactionState,
    ): string => {
       throw new ParserError(
+         ParserArea.General,
          "toSqlMulti not implemented for MssqlParser",
       );
    };
