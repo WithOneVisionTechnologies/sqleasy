@@ -11,8 +11,4 @@ esbuild.build({
    target: "esnext",
    minify: true,
    sourcemap: true,
-   treeShaking: true,
-});
-
-await esbuild.stop();
-Deno.exit(0);
+}).then(() => {Deno.exit()});
