@@ -1,6 +1,6 @@
 {
    "name": "@withonevision/sqleasy",
-   "version": "1.0.0",
+   "version": "1.0.0-next.1",
    "description": "Lightweight SQL builder and parser for MSSQL, MySQL, Postgres, and SQLite.",
    "homepage": "https://github.com/WithOneVisionTechnologies/sqleasy",
    "license": "MIT",
@@ -15,12 +15,12 @@
       "url": "https://github.com/WithOneVisionTechnologies/sqleasy"
    },
    "type": "module",
-   "main": "dist/index.js",
+   "main": "index.js",
    "exports": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": "./index.js",
+      "require": "./index.cjs"
    },
-   "types": "dist/index.d.ts",
+   "types": "index.d.ts",
    "publishConfig": {
       "access": "public"
    },
