@@ -1,4 +1,4 @@
-import { MssqlSqlEasy } from "../../mod.ts";
+import { MssqlSqlEasy } from "../../mod;
 import { assertEquals } from "@std/assert";
 
 Deno.test("select all", () => {
