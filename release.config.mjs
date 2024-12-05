@@ -41,8 +41,8 @@ export default {
                      {
                         file: "./dist/package.json",
                         hasChanged: true,
-                        numMatches: 3,
-                        numReplacements: 3,
+                        numMatches: 4,
+                        numReplacements: 4,
                      },
                   ],
                   countMatches: true,
@@ -95,11 +95,11 @@ export default {
             assets: [
                {
                   path: "dist/index.js",
-                  label: "JavaScript Distribution (CommonJS)",
+                  label: "JavaScript Distribution (ESM)",
                },
                {
-                  path: "dist/index.mjs",
-                  label: "JavaScript Distribution (ESM)",
+                  path: "dist/index.cjs",
+                  label: "JavaScript Distribution (CommonJS)",
                },
                {
                   path: "dist/index.d.ts",

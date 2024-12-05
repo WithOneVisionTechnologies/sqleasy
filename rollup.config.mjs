@@ -15,12 +15,12 @@ export default [
       plugins: [esbuild()],
       output: [
          {
-            file: `${name}.js`,
+            file: `${name}.cjs`,
             format: "cjs",
             sourcemap: true,
          },
          {
-            file: `${name}.mjs`,
+            file: `${name}.js`,
             format: "es",
             sourcemap: true,
          },
