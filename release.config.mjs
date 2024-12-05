@@ -9,6 +9,10 @@ export default {
          name: "alpha",
          prerelease: true,
       },
+      {
+         name: "next",
+         prerelease: true,
+      },
    ],
    plugins: [
       "@semantic-release/commit-analyzer",
