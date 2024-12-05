@@ -25,6 +25,10 @@
       "build": "rollup -c && cpy './package.json' './dist/' && cpy './README.md' './dist/' && cpy './CHANGELOG.md' './dist/'",
       "test": "vitest --coverage"
    },
+   "dependencies": {
+      "@withonevision/is-helper": "^1.3.1",
+      "@withonevision/string-builder": "^1.1.0"
+   },
    "devDependencies": {
       "@eslint/js": "^9.16.0",
       "@sebbo2002/semantic-release-jsr": "^2.0.2",
@@ -48,9 +52,5 @@
       "typescript": "^5.7.2",
       "typescript-eslint": "^8.17.0",
       "vitest": "^2.1.8"
-   },
-   "dependencies": {
-      "@withonevision/is-helper": "^1.2.6",
-      "@withonevision/string-builder": "^1.0.2"
    }
 }
